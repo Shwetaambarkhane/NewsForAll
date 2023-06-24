@@ -7,31 +7,40 @@
 
 import UIKit
 
+protocol ArticleCellDelegate {
+    func didReadMoreButtonTapped(urlString: String)
+}
+
 class ArticleCell: UICollectionViewCell {
     
     weak var articleHeading: UILabel!
     weak var readMoreButton: UIButton!
+    var readMoreUrl: String!
+    var delegate: ArticleCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setArticleHeadingLabel()
-        setReadMoreButton()
-        setArticleHeadingLabelConstraints()
-        setReadMoreButtonConstraints()
+        self.setupViews()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    func setupViews() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.gray.cgColor
+        setArticleHeadingLabel()
+        setReadMoreButton()
+        setArticleHeadingLabelConstraints()
+        setReadMoreButtonConstraints()
     }
     
     func setArticleHeadingLabel() {
         let articleHeading = UILabel()
-        articleHeading.font = UIFont.systemFont(ofSize: 20)
-        articleHeading.textColor = UIColor.gray
+        articleHeading.font = UIFont.systemFont(ofSize: 15)
+        articleHeading.numberOfLines = 2
+        articleHeading.textColor = .black
         self.addSubview(articleHeading)
         self.articleHeading = articleHeading
     }
@@ -49,7 +58,8 @@ class ArticleCell: UICollectionViewCell {
     func setReadMoreButton() {
         let readMoreButton = UIButton()
         readMoreButton.setTitle("Read More", for: .normal)
-        readMoreButton.backgroundColor = .systemMint
+        readMoreButton.backgroundColor = .gray
+        readMoreButton.addTarget(self, action: #selector(tapReadMoreButton), for: .touchUpInside)
         self.addSubview(readMoreButton)
         self.readMoreButton = readMoreButton
     }
@@ -58,13 +68,17 @@ class ArticleCell: UICollectionViewCell {
         self.readMoreButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.readMoreButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-//            self.readMoreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-//            self.readMoreButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/2),
             self.readMoreButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
         ])
     }
     
-    func bind(with heading: String) {
-        self.articleHeading.text = heading
+    @objc
+    func tapReadMoreButton() {
+        delegate?.didReadMoreButtonTapped(urlString: self.readMoreUrl)
+    }
+
+    func bind(with data: ArticleViewData) {
+        self.articleHeading.text = data.articleDescription
+        self.readMoreUrl = data.articleURL
     }
 }

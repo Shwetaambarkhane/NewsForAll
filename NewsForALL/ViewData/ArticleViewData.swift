@@ -9,11 +9,11 @@ import Foundation
 
 class ArticleViewData {
     
-    let articleName: String
     let articleDescription: String
+    let articleURL: String
     
-    init(articleName: String, articleDescription: String) {
-        self.articleName = articleName
+    init(articleDescription: String, articleURL: String) {
         self.articleDescription = articleDescription
+        self.articleURL = articleURL
     }
 }

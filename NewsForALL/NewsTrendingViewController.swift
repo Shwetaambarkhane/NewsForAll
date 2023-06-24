@@ -8,28 +8,33 @@
 import Foundation
 import UIKit
 
-class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate {
+class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, ArticleCellDelegate {
 
     weak var collectionView: UICollectionView!
     weak var tabButtonsView: UIView!
     private var names = [String]()
+    private var newsData = [Any]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.createApi()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.setCollectionView()
         self.setTabButtonsView()
-        self.view.backgroundColor = .brown
 
         self.collectionView.register(ArticleCell.self, forCellWithReuseIdentifier: "cell")
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
 
         names = ["One", "Two", "Three", "Four", "Five"]
-        self.createApi()
     }
     
     func setCollectionView() {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.backgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(collectionView)
         NSLayoutConstraint.activate([
@@ -57,15 +62,15 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate {
     
     func createApi() {
         let headers = [
-            "content-type": "application/octet-stream",
             "X-BingApis-SDK": "true",
+            "Accept-Language": "English",
             "X-RapidAPI-Key": "35e69d2f67mshfa8f9e7673f71f6p140f22jsn2cfd05349106",
             "X-RapidAPI-Host": "bing-news-search1.p.rapidapi.com"
         ]
 
-        let request = NSMutableURLRequest(url: NSURL(string: "https://bing-news-search1.p.rapidapi.com/news/trendingtopics?textFormat=Raw&safeSearch=Off")! as URL,
-                                                cachePolicy: .useProtocolCachePolicy,
-                                            timeoutInterval: 10.0)
+        let request = NSMutableURLRequest(url: NSURL(string: "https://bing-news-search1.p.rapidapi.com/news?safeSearch=Off&textFormat=Raw")! as URL,
+                                          cachePolicy: .useProtocolCachePolicy,
+                                          timeoutInterval: 10.0)
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = headers
 
@@ -73,9 +78,6 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate {
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {
                 print(error as Any)
-            } else {
-                let httpResponse = response as? HTTPURLResponse
-                print(httpResponse)
             }
             
             // ensure there is data returned from this HTTP response
@@ -91,9 +93,17 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate {
             }
 
             print("gotten json response dictionary is \n \(json)")
+            self.newsData = json["value"] as! [Any]
+            print("dfdf -- ", self.newsData.count)
+            if let first = self.newsData.first as? [String : Any] {
+                print(first)
+                DispatchQueue.main.async {
+                    self.collectionView.invalidateIntrinsicContentSize()
+                    self.collectionView.reloadData()//Reload here
+                }
+            }
             // update UI using the response here
         })
-
         dataTask.resume()
     }
     
@@ -104,6 +114,12 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate {
 //        self.dismiss(animated: false)
 //        self.present(vc, animated: false)
         print("Hello")
+    }
+    
+    func didReadMoreButtonTapped(urlString: String) {
+        let webVC = NewsWebViewController(urlString: urlString)
+        webVC.modalPresentationStyle = .fullScreen
+        self.present(webVC, animated: false)
     }
 }
 
@@ -128,24 +144,22 @@ extension NewsTrendingViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.names.count
+        return self.newsData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "cell",
             for: indexPath) as! ArticleCell
+        cell.delegate = self
         
-        let heading = String(format: "%@ - %@", names[indexPath.row], "Hello")
-
-        if indexPath.row % 2 == 0 {
-            cell.backgroundColor = UIColor.green
-        } else {
-            cell.backgroundColor = UIColor.red
+        guard let data = self.newsData[indexPath.row] as? [String : Any] else {
+            print("No data")
+            return UICollectionViewCell()
         }
-
-        cell.layoutIfNeeded()
-        cell.bind(with: heading)
+        
+        let viewdata = ArticleViewData(articleDescription: data["description"] as! String, articleURL: data["url"] as! String)
+        cell.bind(with: viewdata)
         return cell
     }
 }
