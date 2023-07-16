@@ -28,20 +28,10 @@ class NewsWebViewController: UIViewController, WKUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let webView = WKWebView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height - 40))
-        self.view.addSubview(webView)
-        webView.backgroundColor = .green
+        self.navigationController?.navigationBar.isHidden = false
+        setupWebView()
+        setupWebViewConstraints()
         
-        // Nav bar
-        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
-        self.view.addSubview(navBar)
-        let navItem = UINavigationItem(title: "SomeTitle")
-        let backItem = UIBarButtonItem(barButtonSystemItem: .close, target: nil, action: #selector(tapBackButton))
-        navItem.leftBarButtonItem = backItem
-        
-        navBar.setItems([navItem], animated: false)
-        
-        self.webView = webView
         self.webView.load(self.webRequest)
     }
     
@@ -52,8 +42,20 @@ class NewsWebViewController: UIViewController, WKUIDelegate {
         self.view = webView
     }
     
-    @objc
-    func tapBackButton() {
-        self.navigationController?.popViewController(animated: false)
+    func setupWebView() {
+        let webView = WKWebView()
+        self.view.addSubview(webView)
+        webView.backgroundColor = .green
+        self.webView = webView
+    }
+    
+    func setupWebViewConstraints() {
+        self.webView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.webView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.webView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 }

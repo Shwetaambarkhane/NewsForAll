@@ -39,7 +39,7 @@ class ArticleCell: UICollectionViewCell {
     func setArticleHeadingLabel() {
         let articleHeading = UILabel()
         articleHeading.font = UIFont.systemFont(ofSize: 15)
-        articleHeading.numberOfLines = 2
+        articleHeading.numberOfLines = 3
         articleHeading.textColor = .black
         self.addSubview(articleHeading)
         self.articleHeading = articleHeading
@@ -58,8 +58,13 @@ class ArticleCell: UICollectionViewCell {
     func setReadMoreButton() {
         let readMoreButton = UIButton()
         readMoreButton.setTitle("Read More", for: .normal)
-        readMoreButton.backgroundColor = .gray
         readMoreButton.addTarget(self, action: #selector(tapReadMoreButton), for: .touchUpInside)
+        var configuration = UIButton.Configuration.filled()
+        configuration.title = "title"
+        configuration.baseBackgroundColor = .gray
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
+        
+        readMoreButton.configuration = configuration
         self.addSubview(readMoreButton)
         self.readMoreButton = readMoreButton
     }
@@ -80,5 +85,25 @@ class ArticleCell: UICollectionViewCell {
     func bind(with data: ArticleViewData) {
         self.articleHeading.text = data.articleDescription
         self.readMoreUrl = data.articleURL
+    }
+    
+    func cellHeight() -> CGFloat {
+        let textHeight: CGFloat
+        if let text = self.articleHeading.text {
+            textHeight = text.height(withConstrainedWidth: UIScreen.main.bounds.width - 32, font: self.articleHeading.font)
+        } else {
+            textHeight = "a\na\na\na".height(withConstrainedWidth: UIScreen.main.bounds.width - 32, font: self.articleHeading.font)
+        }
+        let buttonHeight = self.readMoreButton.frame.size.height
+        return textHeight + buttonHeight + 40 + 16 + 10
+    }
+}
+
+extension String {
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: UIFont.systemFont(ofSize: 15)], context: nil)
+        return ceil(boundingBox.height)
+        
     }
 }

@@ -12,7 +12,6 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
 
     weak var collectionView: UICollectionView!
     weak var tabButtonsView: UIView!
-    private var names = [String]()
     private var newsData = [Any]()
 
     override func viewDidLoad() {
@@ -22,14 +21,13 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
         self.setCollectionView()
         self.setTabButtonsView()
 
         self.collectionView.register(ArticleCell.self, forCellWithReuseIdentifier: "cell")
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-
-        names = ["One", "Two", "Three", "Four", "Five"]
     }
     
     func setCollectionView() {
@@ -40,8 +38,8 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100)
+            collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -50)
         ])
         self.collectionView = collectionView
     }
@@ -68,7 +66,7 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
             "X-RapidAPI-Host": "bing-news-search1.p.rapidapi.com"
         ]
 
-        let request = NSMutableURLRequest(url: NSURL(string: "https://bing-news-search1.p.rapidapi.com/news?safeSearch=Off&textFormat=Raw")! as URL,
+        let request = NSMutableURLRequest(url: NSURL(string: "https://bing-news-search1.p.rapidapi.com/news/search?q=Sports&freshness=Day&textFormat=Raw&safeSearch=Off")! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
         request.httpMethod = "GET"
@@ -92,9 +90,9 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
                 return
             }
 
-            print("gotten json response dictionary is \n \(json)")
+//            print("gotten json response dictionary is \n \(json)")
             self.newsData = json["value"] as! [Any]
-            print("dfdf -- ", self.newsData.count)
+//            print("dfdf -- ", self.newsData.count)
             if let first = self.newsData.first as? [String : Any] {
                 print(first)
                 DispatchQueue.main.async {
@@ -119,7 +117,8 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
     func didReadMoreButtonTapped(urlString: String) {
         let webVC = NewsWebViewController(urlString: urlString)
         webVC.modalPresentationStyle = .fullScreen
-        self.present(webVC, animated: false)
+//        self.present(webVC, animated: false)
+        self.navigationController?.pushViewController(webVC, animated: true)
     }
 }
 
@@ -133,7 +132,10 @@ extension NewsTrendingViewController: UICollectionViewDelegate {
 extension NewsTrendingViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.size.width - 16, height: 120)
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "cell",
+            for: indexPath) as! ArticleCell
+        return CGSize(width: collectionView.bounds.size.width - 16, height: cell.cellHeight())
     }
 }
 

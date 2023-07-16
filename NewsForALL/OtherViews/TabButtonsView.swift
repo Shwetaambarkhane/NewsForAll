@@ -27,10 +27,6 @@ class TabButtonsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        print("hello")
-    }
-    
     func setupTabButtons() {
         let button1 = UIButton()
         button1.setTitle("TabVCButton1", for: .normal)
