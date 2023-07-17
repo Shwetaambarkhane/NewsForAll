@@ -21,7 +21,8 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
+        self.navigationItem.title = "Trending"
         self.setCollectionView()
         self.setTabButtonsView()
 
@@ -32,7 +33,7 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
     
     func setCollectionView() {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
+        collectionView.backgroundColor = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(collectionView)
         NSLayoutConstraint.activate([
@@ -53,8 +54,14 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
             buttonsView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             buttonsView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             buttonsView.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor),
-            buttonsView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            buttonsView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        buttonsView.trendingButton.backgroundColor = .white
+        let attrString = NSAttributedString(string: "Trending", attributes: [
+            .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
+            .foregroundColor: UIColor.black
+        ])
+        buttonsView.trendingButton.setAttributedTitle(attrString, for: .normal)
         self.tabButtonsView = buttonsView
     }
     
@@ -105,19 +112,22 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
         dataTask.resume()
     }
     
-    func didButtonTapped() {
+    func didTrendingButtonTapped() {
+        print("Hello - Trending")
+    }
+    
+    func didCategoriesButtonTapped() {
 //        let vc = ViewController1()
 //        vc.modalPresentationStyle = .fullScreen
 //        self.navigationController?.popViewController(animated: false)
 //        self.dismiss(animated: false)
 //        self.present(vc, animated: false)
-        print("Hello")
+        print("Hello - Categories")
     }
     
     func didReadMoreButtonTapped(urlString: String) {
         let webVC = NewsWebViewController(urlString: urlString)
         webVC.modalPresentationStyle = .fullScreen
-//        self.present(webVC, animated: false)
         self.navigationController?.pushViewController(webVC, animated: true)
     }
 }

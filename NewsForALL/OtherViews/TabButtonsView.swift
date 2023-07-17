@@ -8,13 +8,14 @@
 import UIKit
 
 protocol TabButtonsViewDelegate {
-    func didButtonTapped()
+    func didTrendingButtonTapped()
+    func didCategoriesButtonTapped()
 }
 
 class TabButtonsView: UIView {
     
-    weak var tab1Button: UIButton!
-    weak var tab2Button: UIButton!
+    weak var trendingButton: UIButton!
+    weak var categoriesButton: UIButton!
     var delegate: TabButtonsViewDelegate?
     
     override init(frame: CGRect) {
@@ -29,40 +30,52 @@ class TabButtonsView: UIView {
     
     func setupTabButtons() {
         let button1 = UIButton()
-        button1.setTitle("TabVCButton1", for: .normal)
-        button1.backgroundColor = .lightGray
-        button1.addTarget(self, action: #selector(didButtonTapped), for: .touchUpInside)
+        let attrString1 = NSAttributedString(string: "Trending", attributes: [
+            .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
+            .foregroundColor: UIColor.white
+        ])
+        button1.setAttributedTitle(attrString1, for: .normal)
+        button1.backgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
+        button1.addTarget(self, action: #selector(didTrendingButtonTapped), for: .touchUpInside)
         
         let button2 = UIButton()
-        button2.setTitle("TabVCButton2", for: .normal)
-        button2.backgroundColor = .lightGray
-        button2.addTarget(self, action: #selector(didButtonTapped), for: .touchUpInside)
+        let attrString2 = NSAttributedString(string: "Categories", attributes: [
+            .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
+            .foregroundColor: UIColor.white
+        ])
+        button2.setAttributedTitle(attrString2, for: .normal)
+        button2.backgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
+        button2.addTarget(self, action: #selector(didCategoriesButtonTapped), for: .touchUpInside)
         
         self.addSubview(button1)
         self.addSubview(button2)
-        self.tab1Button = button1
-        self.tab2Button = button2
+        self.trendingButton = button1
+        self.categoriesButton = button2
     }
     
     func setupTabButtonConstraints() {
-        self.tab1Button.translatesAutoresizingMaskIntoConstraints = false
+        self.trendingButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.tab1Button.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.tab1Button.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/2),
-            self.tab1Button.topAnchor.constraint(equalTo: self.topAnchor),
-            self.tab1Button.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            self.trendingButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.trendingButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/2),
+            self.trendingButton.topAnchor.constraint(equalTo: self.topAnchor),
+            self.trendingButton.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         
-        self.tab2Button.translatesAutoresizingMaskIntoConstraints = false
+        self.categoriesButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.tab2Button.leadingAnchor.constraint(equalTo: self.tab1Button.trailingAnchor),
-            self.tab2Button.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.tab2Button.topAnchor.constraint(equalTo: self.topAnchor),
-            self.tab2Button.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            self.categoriesButton.leadingAnchor.constraint(equalTo: self.trendingButton.trailingAnchor),
+            self.categoriesButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.categoriesButton.topAnchor.constraint(equalTo: self.topAnchor),
+            self.categoriesButton.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
+
+    @objc func didTrendingButtonTapped() {
+        delegate?.didTrendingButtonTapped()
+    }
     
-    @objc func didButtonTapped() {
-        delegate?.didButtonTapped()
+    @objc func didCategoriesButtonTapped() {
+        delegate?.didCategoriesButtonTapped()
     }
 }

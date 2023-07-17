@@ -61,7 +61,7 @@ class ArticleCell: UICollectionViewCell {
         readMoreButton.addTarget(self, action: #selector(tapReadMoreButton), for: .touchUpInside)
         var configuration = UIButton.Configuration.filled()
         configuration.title = "title"
-        configuration.baseBackgroundColor = .gray
+        configuration.baseBackgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
         
         readMoreButton.configuration = configuration

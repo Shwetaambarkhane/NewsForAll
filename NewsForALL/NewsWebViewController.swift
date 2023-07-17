@@ -28,7 +28,6 @@ class NewsWebViewController: UIViewController, WKUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = false
         setupWebView()
         setupWebViewConstraints()
         
@@ -45,7 +44,6 @@ class NewsWebViewController: UIViewController, WKUIDelegate {
     func setupWebView() {
         let webView = WKWebView()
         self.view.addSubview(webView)
-        webView.backgroundColor = .green
         self.webView = webView
     }
     
