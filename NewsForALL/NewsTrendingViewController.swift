@@ -23,6 +23,7 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
         self.navigationItem.title = "Trending"
+        self.navigationController?.isNavigationBarHidden = false
         self.setCollectionView()
         self.setTabButtonsView()
 
@@ -97,9 +98,7 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
                 return
             }
 
-//            print("gotten json response dictionary is \n \(json)")
             self.newsData = json["value"] as! [Any]
-//            print("dfdf -- ", self.newsData.count)
             if let first = self.newsData.first as? [String : Any] {
                 print(first)
                 DispatchQueue.main.async {
@@ -113,16 +112,14 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
     }
     
     func didTrendingButtonTapped() {
-        print("Hello - Trending")
+        // No op
     }
     
     func didCategoriesButtonTapped() {
-//        let vc = ViewController1()
-//        vc.modalPresentationStyle = .fullScreen
-//        self.navigationController?.popViewController(animated: false)
-//        self.dismiss(animated: false)
-//        self.present(vc, animated: false)
-        print("Hello - Categories")
+        let vc = NewsCategoriesViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.navigationController?.popViewController(animated: false)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func didReadMoreButtonTapped(urlString: String) {
@@ -146,6 +143,10 @@ extension NewsTrendingViewController: UICollectionViewDelegateFlowLayout {
             withReuseIdentifier: "cell",
             for: indexPath) as! ArticleCell
         return CGSize(width: collectionView.bounds.size.width - 16, height: cell.cellHeight())
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
     }
 }
 

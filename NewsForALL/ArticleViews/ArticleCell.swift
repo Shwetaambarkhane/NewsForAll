@@ -50,8 +50,7 @@ class ArticleCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             self.articleHeading.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             self.articleHeading.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            self.articleHeading.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            self.articleHeading.bottomAnchor.constraint(equalTo: self.readMoreButton.topAnchor, constant: -20)
+            self.articleHeading.topAnchor.constraint(equalTo: self.topAnchor, constant: 10)
         ])
     }
     
