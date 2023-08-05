@@ -11,7 +11,6 @@ import UIKit
 class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, ArticleCellDelegate {
 
     weak var collectionView: UICollectionView!
-    weak var tabButtonsView: UIView!
     private var newsData = [Any]()
     private var request: NSMutableURLRequest
     
@@ -33,7 +32,6 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setCollectionView()
-        self.setTabButtonsView()
 
         self.collectionView.register(ArticleCell.self, forCellWithReuseIdentifier: "cell")
         self.collectionView.delegate = self
@@ -48,30 +46,9 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -50)
+            collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
         ])
         self.collectionView = collectionView
-    }
-    
-    func setTabButtonsView() {
-        let buttonsView = TabButtonsView()
-        buttonsView.delegate = self
-        buttonsView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(buttonsView)
-        NSLayoutConstraint.activate([
-            buttonsView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            buttonsView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            buttonsView.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor),
-            buttonsView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-        buttonsView.trendingButton.backgroundColor = .white
-        let attrString = NSAttributedString(string: "Trending", attributes: [
-            .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
-            .foregroundColor: UIColor.black
-        ])
-        buttonsView.trendingButton.setAttributedTitle(attrString, for: .normal)
-        self.tabButtonsView = buttonsView
     }
     
     func createApi() {
