@@ -73,11 +73,19 @@ class NewsCategoriesViewController: UIViewController, TabButtonsViewDelegate {
     func didCategoriesButtonTapped() {
         // No op
     }
+    
+    func didCellTapped(withCategory category: String) {
+        let vc = NewsOfCategoryViewController(category: category)
+        vc.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension NewsCategoriesViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        didCellTapped(withCategory: self.categoriesData[indexPath.row])
+        
         print(indexPath.row + 1)
     }
 }
