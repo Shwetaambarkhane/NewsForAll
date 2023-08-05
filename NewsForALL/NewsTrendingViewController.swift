@@ -100,7 +100,6 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
 
             self.newsData = json["value"] as! [Any]
             if let first = self.newsData.first as? [String : Any] {
-                print(first)
                 DispatchQueue.main.async {
                     self.collectionView.invalidateIntrinsicContentSize()
                     self.collectionView.reloadData()//Reload here
@@ -126,13 +125,6 @@ class NewsTrendingViewController: UIViewController, TabButtonsViewDelegate, Arti
         let webVC = NewsWebViewController(urlString: urlString)
         webVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(webVC, animated: true)
-    }
-}
-
-extension NewsTrendingViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row + 1)
     }
 }
 

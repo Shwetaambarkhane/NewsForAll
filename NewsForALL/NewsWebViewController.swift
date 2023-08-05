@@ -16,7 +16,7 @@ class NewsWebViewController: UIViewController, WKUIDelegate {
         super.init(nibName: nil, bundle: nil)
         let url = URL(string: urlString)
         guard let url = url else {
-            print("Hello - nil url")
+            assertionFailure("url cannot be nil")
             return
         }
         self.webRequest = URLRequest(url: url)
