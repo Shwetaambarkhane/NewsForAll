@@ -20,8 +20,8 @@ class TabButtonsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setupTabButtons()
-        self.setupTabButtonConstraints()
+        setupTabButtons()
+        setupTabButtonConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -47,27 +47,27 @@ class TabButtonsView: UIView {
         button2.backgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
         button2.addTarget(self, action: #selector(didCategoriesButtonTapped), for: .touchUpInside)
         
-        self.addSubview(button1)
-        self.addSubview(button2)
+        addSubview(button1)
+        addSubview(button2)
         self.trendingButton = button1
         self.categoriesButton = button2
     }
     
     func setupTabButtonConstraints() {
-        self.trendingButton.translatesAutoresizingMaskIntoConstraints = false
+        trendingButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.trendingButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.trendingButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/2),
-            self.trendingButton.topAnchor.constraint(equalTo: self.topAnchor),
-            self.trendingButton.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            trendingButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            trendingButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/2),
+            trendingButton.topAnchor.constraint(equalTo: topAnchor),
+            trendingButton.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
-        self.categoriesButton.translatesAutoresizingMaskIntoConstraints = false
+        categoriesButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.categoriesButton.leadingAnchor.constraint(equalTo: self.trendingButton.trailingAnchor),
-            self.categoriesButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.categoriesButton.topAnchor.constraint(equalTo: self.topAnchor),
-            self.categoriesButton.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            categoriesButton.leadingAnchor.constraint(equalTo: trendingButton.trailingAnchor),
+            categoriesButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            categoriesButton.topAnchor.constraint(equalTo: topAnchor),
+            categoriesButton.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 

@@ -33,24 +33,24 @@ class NewsTrendingViewController: NewsArticlesViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
-        self.navigationItem.title = "Trending"
-        self.navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.barTintColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
+        navigationItem.title = "Trending"
+        navigationController?.isNavigationBarHidden = false
         
         super.viewWillAppear(animated)
-        self.setTabButtonsView()
+        setTabButtonsView()
     }
     
     func setTabButtonsView() {
         let buttonsView = TabButtonsView()
         buttonsView.delegate = self
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(buttonsView)
+        view.addSubview(buttonsView)
         NSLayoutConstraint.activate([
-            buttonsView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            buttonsView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            buttonsView.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor),
-            buttonsView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            buttonsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            buttonsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            buttonsView.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            buttonsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             buttonsView.heightAnchor.constraint(equalToConstant: 50)
         ])
         buttonsView.trendingButton.backgroundColor = .white

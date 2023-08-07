@@ -14,7 +14,7 @@ class NewsCategoriesCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setupViews()
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
@@ -22,21 +22,18 @@ class NewsCategoriesCell: UICollectionViewCell {
     }
     
     func setupViews() {
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.gray.cgColor
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.gray.cgColor
         setCategoryLabel()
         setCategoryImage()
         setCategoryLabelConstraints()
         setCategoryImageConstraints()
-//        self.frame = CGRect(x: 0, y: 0, width: self.categoryImage.frame.width, height: self.categoryImage.frame.height)
     }
     
     func setCellConstraints() {
-        self.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            self.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            self.heightAnchor.constraint(equalTo: self.categoryImage.heightAnchor, constant: 20)
+            self.heightAnchor.constraint(equalTo: categoryImage.heightAnchor, constant: 20)
         ])
     }
     
@@ -44,16 +41,16 @@ class NewsCategoriesCell: UICollectionViewCell {
         let categoryLabel = UILabel()
         categoryLabel.font = UIFont.systemFont(ofSize: 18)
         categoryLabel.textColor = .black
-        self.addSubview(categoryLabel)
+        addSubview(categoryLabel)
         self.categoryLabel = categoryLabel
     }
     
     func setCategoryLabelConstraints() {
-        self.categoryLabel.translatesAutoresizingMaskIntoConstraints = false
+        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.categoryLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            self.categoryLabel.leadingAnchor.constraint(greaterThanOrEqualTo: self.categoryImage.trailingAnchor),
-            self.categoryLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            categoryLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            categoryLabel.leadingAnchor.constraint(greaterThanOrEqualTo: categoryImage.trailingAnchor),
+            categoryLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     
@@ -61,23 +58,23 @@ class NewsCategoriesCell: UICollectionViewCell {
         let image = UIImage(named: "Education")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
-        self.addSubview(imageView)
+        addSubview(imageView)
         self.categoryImage = imageView
     }
     
     func setCategoryImageConstraints() {
-        self.categoryImage.translatesAutoresizingMaskIntoConstraints = false
+        categoryImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.categoryImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            self.categoryImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            self.categoryImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-            self.categoryImage.widthAnchor.constraint(equalToConstant: 150)
+            categoryImage.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            categoryImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            categoryImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            categoryImage.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
     
     func bind(with category: String) {
-        self.categoryLabel.text = category
-        self.categoryImage.image = UIImage(named: category)
+        categoryLabel.text = category
+        categoryImage.image = UIImage(named: category)
     }
 
 }

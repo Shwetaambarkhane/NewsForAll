@@ -19,26 +19,26 @@ class NewsCategoriesViewController: UIViewController, TabButtonsViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
-        self.navigationItem.title = "Categories"
-        self.setCollectionView()
-        self.setTabButtonsView()
+        navigationController?.navigationBar.barTintColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
+        navigationItem.title = "Categories"
+        setCollectionView()
+        setTabButtonsView()
 
-        self.collectionView.register(NewsCategoriesCell.self, forCellWithReuseIdentifier: "cell")
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
+        collectionView.register(NewsCategoriesCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
     
     func setCollectionView() {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(collectionView)
+        view.addSubview(collectionView)
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -50)
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50)
         ])
         self.collectionView = collectionView
     }
@@ -47,12 +47,12 @@ class NewsCategoriesViewController: UIViewController, TabButtonsViewDelegate {
         let buttonsView = TabButtonsView()
         buttonsView.delegate = self
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(buttonsView)
+        view.addSubview(buttonsView)
         NSLayoutConstraint.activate([
-            buttonsView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            buttonsView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            buttonsView.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor),
-            buttonsView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            buttonsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            buttonsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            buttonsView.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            buttonsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         buttonsView.categoriesButton.backgroundColor = .white
         let attrString = NSAttributedString(string: "Categories", attributes: [
@@ -66,8 +66,8 @@ class NewsCategoriesViewController: UIViewController, TabButtonsViewDelegate {
     func didTrendingButtonTapped() {
         let vc = NewsTrendingViewController()
         vc.modalPresentationStyle = .fullScreen
-        self.navigationController?.popViewController(animated: false)
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.popViewController(animated: false)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func didCategoriesButtonTapped() {
@@ -77,14 +77,14 @@ class NewsCategoriesViewController: UIViewController, TabButtonsViewDelegate {
     func didCellTapped(withCategory category: String) {
         let vc = NewsOfCategoryViewController(category: category)
         vc.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 extension NewsCategoriesViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didCellTapped(withCategory: self.categoriesData[indexPath.row])
+        didCellTapped(withCategory: categoriesData[indexPath.row])
         
         print(indexPath.row + 1)
     }
@@ -116,7 +116,7 @@ extension NewsCategoriesViewController: UICollectionViewDataSource {
             withReuseIdentifier: "cell",
             for: indexPath) as! NewsCategoriesCell
         
-        let data = self.categoriesData[indexPath.row]
+        let data = categoriesData[indexPath.row]
         cell.bind(with: data)
         return cell
     }

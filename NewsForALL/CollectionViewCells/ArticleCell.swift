@@ -20,7 +20,7 @@ class ArticleCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setupViews()
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
@@ -28,8 +28,8 @@ class ArticleCell: UICollectionViewCell {
     }
     
     func setupViews() {
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.gray.cgColor
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.gray.cgColor
         setArticleHeadingLabel()
         setReadMoreButton()
         setArticleHeadingLabelConstraints()
@@ -41,16 +41,16 @@ class ArticleCell: UICollectionViewCell {
         articleHeading.font = UIFont.systemFont(ofSize: 15)
         articleHeading.numberOfLines = 3
         articleHeading.textColor = .black
-        self.addSubview(articleHeading)
+        addSubview(articleHeading)
         self.articleHeading = articleHeading
     }
     
     func setArticleHeadingLabelConstraints() {
-        self.articleHeading.translatesAutoresizingMaskIntoConstraints = false
+        articleHeading.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.articleHeading.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            self.articleHeading.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            self.articleHeading.topAnchor.constraint(equalTo: self.topAnchor, constant: 10)
+            articleHeading.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            articleHeading.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            articleHeading.topAnchor.constraint(equalTo: topAnchor, constant: 10)
         ])
     }
     
@@ -64,45 +64,25 @@ class ArticleCell: UICollectionViewCell {
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
         
         readMoreButton.configuration = configuration
-        self.addSubview(readMoreButton)
+        addSubview(readMoreButton)
         self.readMoreButton = readMoreButton
     }
     
     func setReadMoreButtonConstraints() {
-        self.readMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        readMoreButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.readMoreButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            self.readMoreButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
+            readMoreButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            readMoreButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
         ])
     }
     
     @objc
     func tapReadMoreButton() {
-        delegate?.didReadMoreButtonTapped(urlString: self.readMoreUrl)
+        delegate?.didReadMoreButtonTapped(urlString: readMoreUrl)
     }
 
     func bind(with data: ArticleViewData) {
-        self.articleHeading.text = data.articleDescription
-        self.readMoreUrl = data.articleURL
-    }
-    
-    func cellHeight() -> CGFloat {
-        let textHeight: CGFloat
-        if let text = self.articleHeading.text {
-            textHeight = text.height(withConstrainedWidth: UIScreen.main.bounds.width - 32, font: self.articleHeading.font)
-        } else {
-            textHeight = "a\na\na\na".height(withConstrainedWidth: UIScreen.main.bounds.width - 32, font: self.articleHeading.font)
-        }
-        let buttonHeight = self.readMoreButton.frame.size.height
-        return textHeight + buttonHeight + 40 + 16 + 10
-    }
-}
-
-extension String {
-    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: UIFont.systemFont(ofSize: 15)], context: nil)
-        return ceil(boundingBox.height)
-        
+        articleHeading.text = data.articleDescription
+        readMoreUrl = data.articleURL
     }
 }

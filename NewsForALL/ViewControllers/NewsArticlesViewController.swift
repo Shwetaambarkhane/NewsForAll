@@ -26,27 +26,27 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.createApi()
+        createApi()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setCollectionView()
+        setCollectionView()
 
-        self.collectionView.register(ArticleCell.self, forCellWithReuseIdentifier: "cell")
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
+        collectionView.register(ArticleCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
     
     func setCollectionView() {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(collectionView)
+        view.addSubview(collectionView)
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
         self.collectionView = collectionView
     }
@@ -89,14 +89,14 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
     func didCategoriesButtonTapped() {
         let vc = NewsCategoriesViewController()
         vc.modalPresentationStyle = .fullScreen
-        self.navigationController?.popViewController(animated: false)
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.popViewController(animated: false)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func didReadMoreButtonTapped(urlString: String) {
         let webVC = NewsWebViewController(urlString: urlString)
         webVC.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(webVC, animated: true)
+        navigationController?.pushViewController(webVC, animated: true)
     }
 }
 
@@ -106,7 +106,7 @@ extension NewsArticlesViewController: UICollectionViewDelegateFlowLayout {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "cell",
             for: indexPath) as! ArticleCell
-        return CGSize(width: collectionView.bounds.size.width - 16, height: cell.cellHeight())
+        return CGSize(width: collectionView.bounds.size.width - 16, height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -121,7 +121,7 @@ extension NewsArticlesViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.newsData.count
+        return newsData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -130,7 +130,7 @@ extension NewsArticlesViewController: UICollectionViewDataSource {
             for: indexPath) as! ArticleCell
         cell.delegate = self
         
-        guard let data = self.newsData[indexPath.row] as? [String : Any] else {
+        guard let data = newsData[indexPath.row] as? [String : Any] else {
             print("No data")
             return UICollectionViewCell()
         }

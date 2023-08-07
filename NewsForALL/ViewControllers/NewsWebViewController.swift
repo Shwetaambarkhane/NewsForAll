@@ -31,29 +31,29 @@ class NewsWebViewController: UIViewController, WKUIDelegate {
         setupWebView()
         setupWebViewConstraints()
         
-        self.webView.load(self.webRequest)
+        webView.load(webRequest)
     }
     
     override func loadView() {
         let webConfig = WKWebViewConfiguration()
         let webView = WKWebView(frame: .zero, configuration: webConfig)
         webView.uiDelegate = self
-        self.view = webView
+        view = webView
     }
     
     func setupWebView() {
         let webView = WKWebView()
-        self.view.addSubview(webView)
+        view.addSubview(webView)
         self.webView = webView
     }
     
     func setupWebViewConstraints() {
-        self.webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.webView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.webView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }

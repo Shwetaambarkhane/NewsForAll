@@ -17,11 +17,11 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let vc = NewsTrendingViewController()
-        self.navigationController?.popViewController(animated: false)
-        self.dismiss(animated: false)
+        navigationController?.popViewController(animated: false)
+        dismiss(animated: false)
         let navVC = UINavigationController(rootViewController: vc)
         navVC.modalPresentationStyle = .fullScreen
-        self.present(navVC, animated: true)
+        present(navVC, animated: true)
     }
 
 }
