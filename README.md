@@ -1,7 +1,6 @@
 # NewsForAll
-It is an iOS mobile application for the latest and trending news from all over the world. 
-The app is easy to use. 
-Users can select the news by different categories.
+The iOS mobile application provides access to current and trending news from around the globe.
+The application boasts user-friendly functionality, allowing users to effortlessly navigate and explore news articles based on various categories.
 
 # Launch Screen
 ![Simulator Screenshot - iPhone 14 Pro - 2023-08-05 at 15 15 06](https://github.com/Shwetaambarkhane/NewsForAll/assets/66417077/04dc96b8-e01d-46af-ba4a-9a73cb36b01f)
