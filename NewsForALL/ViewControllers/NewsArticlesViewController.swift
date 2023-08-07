@@ -14,6 +14,14 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
     private var newsData = [Any]()
     private var request: NSMutableURLRequest
     
+    lazy var refresher: UIRefreshControl = {
+       let refresher = UIRefreshControl()
+        refresher.tintColor = .black
+        refresher.addTarget(self, action: #selector(createApi), for: .valueChanged)
+        
+        return refresher
+    }()
+    
     
     init(request: NSMutableURLRequest) {
         self.request = request
@@ -36,6 +44,7 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
         collectionView.register(ArticleCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.refreshControl = refresher
     }
     
     func setCollectionView() {
@@ -51,6 +60,7 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
         self.collectionView = collectionView
     }
     
+    @objc
     func createApi() {
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
@@ -75,6 +85,7 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
                 DispatchQueue.main.async {
                     self.collectionView.invalidateIntrinsicContentSize()
                     self.collectionView.reloadData()//Reload here
+                    self.refresher.endRefreshing()
                 }
             }
             // update UI using the response here
