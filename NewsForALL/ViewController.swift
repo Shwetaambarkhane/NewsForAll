@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let vc = NewsTrendingViewController()
+        let vc = LoginViewController()
         navigationController?.popViewController(animated: false)
         dismiss(animated: false)
         let navVC = UINavigationController(rootViewController: vc)
