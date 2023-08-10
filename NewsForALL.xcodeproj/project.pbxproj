@@ -23,6 +23,7 @@
 		AAB903402A7E473D00A987FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB9033F2A7E473D00A987FC /* LaunchScreen.storyboard */; };
 		AAB903422A7E4BED00A987FC /* NewsArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB903412A7E4BED00A987FC /* NewsArticlesViewController.swift */; };
 		AAB903442A7E4E2E00A987FC /* NewsOfCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB903432A7E4E2E00A987FC /* NewsOfCategoryViewController.swift */; };
+		AADF5B0E2A83999400FD63BB /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AADF5B0C2A83999400FD63BB /* CoreDataModel.xcdatamodeld */; };
 		AAF436D62A65AA770075F432 /* NewsCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF436D52A65AA770075F432 /* NewsCategoriesViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		AAB9033F2A7E473D00A987FC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAB903412A7E4BED00A987FC /* NewsArticlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticlesViewController.swift; sourceTree = "<group>"; };
 		AAB903432A7E4E2E00A987FC /* NewsOfCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsOfCategoryViewController.swift; sourceTree = "<group>"; };
+		AADF5B0D2A83999400FD63BB /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		AAF436D52A65AA770075F432 /* NewsCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCategoriesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,8 +80,8 @@
 		AA6AACFD29F5607B001A5560 /* NewsForALL */ = {
 			isa = PBXGroup;
 			children = (
-				AA6AAD1A29F56A3E001A5560 /* ViewData */,
-				AA6AAD1729F56A06001A5560 /* NewsViews */,
+				AA6AAD1A29F56A3E001A5560 /* Models */,
+				AA6AAD1729F56A06001A5560 /* Views */,
 				AAC0B1AF2A80B3ED00411C0C /* ViewControllers */,
 				AA6AACFE29F5607B001A5560 /* AppDelegate.swift */,
 				AA6AAD0029F5607B001A5560 /* SceneDelegate.swift */,
@@ -88,6 +90,7 @@
 				AA6AAD0729F5607C001A5560 /* Assets.xcassets */,
 				AA6AAD0C29F5607C001A5560 /* Info.plist */,
 				AAB9033F2A7E473D00A987FC /* LaunchScreen.storyboard */,
+				AADF5B0C2A83999400FD63BB /* CoreDataModel.xcdatamodeld */,
 			);
 			path = NewsForALL;
 			sourceTree = "<group>";
@@ -101,22 +104,22 @@
 			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
-		AA6AAD1729F56A06001A5560 /* NewsViews */ = {
+		AA6AAD1729F56A06001A5560 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				AA6AAD1429F568C6001A5560 /* CollectionViewCells */,
 				AA6AAD1829F56A1A001A5560 /* TabButtonsView.swift */,
 			);
-			path = NewsViews;
+			path = Views;
 			sourceTree = "<group>";
 		};
-		AA6AAD1A29F56A3E001A5560 /* ViewData */ = {
+		AA6AAD1A29F56A3E001A5560 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				AA6AAD1B29F56A4B001A5560 /* ArticleViewData.swift */,
 				AA5F07E12A1A47530019DFC9 /* NewsInfoViewData.swift */,
 			);
-			path = ViewData;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		AAC0B1AF2A80B3ED00411C0C /* ViewControllers */ = {
@@ -217,6 +220,7 @@
 				AA6AAD1C29F56A4B001A5560 /* ArticleViewData.swift in Sources */,
 				AA6AAD0129F5607B001A5560 /* SceneDelegate.swift in Sources */,
 				AA5F07E22A1A47530019DFC9 /* NewsInfoViewData.swift in Sources */,
+				AADF5B0E2A83999400FD63BB /* CoreDataModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +436,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AADF5B0C2A83999400FD63BB /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AADF5B0D2A83999400FD63BB /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = AADF5B0D2A83999400FD63BB /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AA6AACF329F5607B001A5560 /* Project object */;
 }

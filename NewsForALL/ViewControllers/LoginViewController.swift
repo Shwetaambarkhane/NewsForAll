@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class LoginViewController: UIViewController {
     
@@ -19,12 +20,36 @@ class LoginViewController: UIViewController {
     weak var componentStackView: UIStackView!
     
     var haveAccount = true
+    
+    // Reference to manage object context
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    var registeredUser: [RegisteredUser]?
+    var currentUsers: [CurrentUser]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
         setupViews()
+        fetchRegisteredUsers()
+        fetchCurrentUsers()
+    }
+    
+    func fetchRegisteredUsers() {
+        do {
+            registeredUser = try context.fetch(RegisteredUser.fetchRequest())
+        } catch {
+            print("Unsuccessful registered users fetch request")
+        }
+    }
+    
+    func fetchCurrentUsers() {
+        do {
+            currentUsers = try context.fetch(CurrentUser.fetchRequest())
+        } catch {
+            print("Unsuccessful current user fetch request")
+        }
     }
     
     func setupViews() {
@@ -220,11 +245,15 @@ class LoginViewController: UIViewController {
         }
         
         if haveAccount {
+            setCurrentUser()
+            
             let vc = NewsTrendingViewController()
             vc.modalPresentationStyle = .fullScreen
             navigationController?.popViewController(animated: false)
             navigationController?.pushViewController(vc, animated: true)
         } else {
+            
+            addToRegisteredUsers()
             refreshPage()
         }
     }
@@ -237,12 +266,82 @@ class LoginViewController: UIViewController {
         } else if !haveAccount && (password.text != confirmPassword.text) {
             messageLabel.text = "Passwords don't match"
         } else {
-            messageLabel.text = nil
-            return
+            var isError = false
+            var isRegistered = false
+            
+            registeredUser?.forEach { rUser in
+                if emailId.text == rUser.user?.emailId {
+                    if !haveAccount {
+                        messageLabel.text = "This email id is already registered, login"
+                        isError = true
+                    } else {
+                        isRegistered = true
+                        if password.text != rUser.user?.password {
+                            messageLabel.text = "Wrong password"
+                            isError = true
+                        }
+                    }
+                }
+            }
+            
+            if haveAccount && !isRegistered {
+                messageLabel.text = "This email id is not registered, sign up"
+                isError = true
+            }
+            if !isError {
+                messageLabel.text = nil
+                return
+            }
         }
         
         messageLabel.isHidden = false
         view.layoutIfNeeded()
+    }
+    
+    func setCurrentUser() {
+        
+        if currentUsers != nil && currentUsers!.count > 0 {
+            context.delete(currentUsers![0])
+        }
+        
+        // create new user
+        let user = User(context: context)
+        user.emailId = emailId.text
+        user.password = password.text
+        
+        let currentUser = CurrentUser(context: context)
+        currentUser.user = user
+        
+        // save context
+        do {
+            try context.save()
+        } catch {
+            print("Unsuccessful save request")
+        }
+        
+        // fetch data
+        fetchCurrentUsers()
+    }
+    
+    func addToRegisteredUsers() {
+        
+        // create new user
+        let newUser = User(context: context)
+        newUser.emailId = emailId.text
+        newUser.password = password.text
+        
+        let newRegisteredUser = RegisteredUser(context: context)
+        newRegisteredUser.user = newUser
+        
+        // save context
+        do {
+            try context.save()
+        } catch {
+            print("Unsuccessful save request")
+        }
+        
+        // fetch data
+        fetchRegisteredUsers()
     }
     
     @objc
