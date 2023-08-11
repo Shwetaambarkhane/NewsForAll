@@ -12,6 +12,11 @@ class NewsTrendingViewController: NewsArticlesViewController {
     
     weak var tabButtonsView: UIView!
     
+    // Reference to manage object context
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    var currentUsers: [CurrentUser]?
+    
     init() {
         let headers = [
             "X-BingApis-SDK": "true",
@@ -32,9 +37,27 @@ class NewsTrendingViewController: NewsArticlesViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        fetchCurrentUsers()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.barTintColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
         navigationItem.title = "Trending"
+        
+        let logoutImage = UIImage(named: "Logout")
+        let button = UIButton(type: .custom)
+        button.setImage(logoutImage, for: .normal)
+        button.addTarget(self, action: #selector(logout), for: .allTouchEvents)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            button.heightAnchor.constraint(equalToConstant: 30),
+            button.widthAnchor.constraint(equalToConstant: 30)
+        ])
+        let barButton = UIBarButtonItem(customView: button)
+        navigationItem.rightBarButtonItem = barButton
         navigationController?.isNavigationBarHidden = false
         
         super.viewWillAppear(animated)
@@ -60,5 +83,32 @@ class NewsTrendingViewController: NewsArticlesViewController {
         ])
         buttonsView.trendingButton.setAttributedTitle(attrString, for: .normal)
         self.tabButtonsView = buttonsView
+    }
+    
+    @objc
+    func logout() {
+        if currentUsers != nil && currentUsers!.count > 0 {
+            context.delete(currentUsers![0])
+        }
+        
+        // save context
+        do {
+            try context.save()
+        } catch {
+            print("Unsuccessful save request")
+        }
+        
+        let vc = LoginViewController()
+        vc.modalPresentationStyle = .fullScreen
+        vc.navigationController?.dismiss(animated: false)
+        present(vc, animated: true)
+    }
+    
+    func fetchCurrentUsers() {
+        do {
+            currentUsers = try context.fetch(CurrentUser.fetchRequest())
+        } catch {
+            print("Unsuccessful current user fetch request")
+        }
     }
 }
