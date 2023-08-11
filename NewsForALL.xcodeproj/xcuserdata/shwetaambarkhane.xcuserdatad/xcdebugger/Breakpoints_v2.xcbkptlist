@@ -128,5 +128,117 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F3724057-A506-416C-A4E3-7B5AB983E210"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NewsForALL/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "31469826-9A67-4365-A7E0-932DD34B2725"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NewsForALL/ViewControllers/LoginViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
+            landmarkName = "setCurrentUser()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "31469826-9A67-4365-A7E0-932DD34B2725 - 38df6e4351f296e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewsForALL.LoginViewController.setCurrentUser() -&gt; ()"
+                  moduleName = "NewsForALL"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/LoginViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "302"
+                  endingLineNumber = "302"
+                  offsetFromSymbolStart = "136">
+               </Location>
+               <Location
+                  uuid = "31469826-9A67-4365-A7E0-932DD34B2725 - 38df6e4351f294f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewsForALL.LoginViewController.setCurrentUser() -&gt; ()"
+                  moduleName = "NewsForALL"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/LoginViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "303"
+                  endingLineNumber = "303"
+                  offsetFromSymbolStart = "124">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "164C3CAC-45C2-4452-90C8-BBE7F2D432B7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NewsForALL/ViewControllers/NewsTrendingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "164C3CAC-45C2-4452-90C8-BBE7F2D432B7 - 247ebcf5522e8303"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewsForALL.NewsTrendingViewController.viewWillAppear(Swift.Bool) -&gt; ()"
+                  moduleName = "NewsForALL"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsTrendingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  uuid = "164C3CAC-45C2-4452-90C8-BBE7F2D432B7 - 247ebcf5522e8303"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewsForALL.NewsTrendingViewController.viewWillAppear(Swift.Bool) -&gt; ()"
+                  moduleName = "NewsForALL"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsTrendingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

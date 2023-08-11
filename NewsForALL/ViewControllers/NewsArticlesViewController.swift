@@ -81,7 +81,7 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
             }
 
             self.newsData = json["value"] as! [Any]
-            if let first = self.newsData.first as? [String : Any] {
+            if self.newsData.first is [String : Any] {
                 DispatchQueue.main.async {
                     self.collectionView.invalidateIntrinsicContentSize()
                     self.collectionView.reloadData()//Reload here
@@ -100,7 +100,7 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
     func didCategoriesButtonTapped() {
         let vc = NewsCategoriesViewController()
         vc.modalPresentationStyle = .fullScreen
-        navigationController?.popViewController(animated: false)
+        vc.dismiss(animated: false)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -114,9 +114,6 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
 extension NewsArticlesViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "cell",
-            for: indexPath) as! ArticleCell
         return CGSize(width: collectionView.bounds.size.width - 16, height: 120)
     }
     
