@@ -41,7 +41,7 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
         super.viewWillAppear(animated)
         setCollectionView()
 
-        collectionView.register(ArticleCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(ArticleCell.self, forCellWithReuseIdentifier: "articleCell")
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.refreshControl = refresher
@@ -134,7 +134,7 @@ extension NewsArticlesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "cell",
+            withReuseIdentifier: "articleCell",
             for: indexPath) as! ArticleCell
         cell.delegate = self
         
