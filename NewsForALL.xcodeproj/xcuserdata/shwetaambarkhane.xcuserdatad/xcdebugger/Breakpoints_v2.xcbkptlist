@@ -202,9 +202,9 @@
             filePath = "NewsForALL/ViewControllers/NewsTrendingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "logout()"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "setTabButtonsView()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -250,8 +250,8 @@
             filePath = "NewsForALL/ViewControllers/NewsTrendingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "logout()"
             landmarkType = "7">
             <Locations>

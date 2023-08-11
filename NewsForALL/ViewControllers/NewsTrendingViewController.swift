@@ -43,8 +43,13 @@ class NewsTrendingViewController: NewsArticlesViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.barTintColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
         navigationItem.title = "Trending"
+        
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithOpaqueBackground()
+        barAppearance.backgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
+        navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
+        navigationController?.navigationBar.standardAppearance = barAppearance
         
         let logoutImage = UIImage(named: "Logout")
         let button = UIButton(type: .custom)
@@ -58,7 +63,6 @@ class NewsTrendingViewController: NewsArticlesViewController {
         ])
         let barButton = UIBarButtonItem(customView: button)
         navigationItem.rightBarButtonItem = barButton
-        navigationController?.isNavigationBarHidden = false
         
         super.viewWillAppear(animated)
         setTabButtonsView()

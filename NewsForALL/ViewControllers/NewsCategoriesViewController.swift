@@ -13,18 +13,13 @@ class NewsCategoriesViewController: UIViewController, TabButtonsViewDelegate {
     weak var tabButtonsView: UIView!
     private var categoriesData = ["Education", "Business", "Sports"]
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.barTintColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
         navigationItem.title = "Categories"
         setCollectionView()
         setTabButtonsView()
 
-        collectionView.register(NewsCategoriesCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(NewsCategoriesCell.self, forCellWithReuseIdentifier: "categoryCell")
         collectionView.delegate = self
         collectionView.dataSource = self
     }
@@ -113,7 +108,7 @@ extension NewsCategoriesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "cell",
+            withReuseIdentifier: "categoryCell",
             for: indexPath) as! NewsCategoriesCell
         
         let data = categoriesData[indexPath.row]
