@@ -24,12 +24,16 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let vc = (currentUsers != nil && currentUsers!.count > 0) ? NewsTrendingViewController() : LoginViewController()
+        let loggedIn: Bool = currentUsers != nil && currentUsers!.count > 0
+        var vc: UIViewController = LoginViewController()
+        
         navigationController?.popViewController(animated: false)
         dismiss(animated: false)
-        let navVC = UINavigationController(rootViewController: vc)
-        navVC.modalPresentationStyle = .fullScreen
-        present(navVC, animated: true)
+        if loggedIn {
+            vc = UINavigationController(rootViewController: NewsTrendingViewController())
+        }
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
     
     func fetchCurrentUsers() {

@@ -247,10 +247,9 @@ class LoginViewController: UIViewController {
         if haveAccount {
             setCurrentUser()
             
-            let vc = NewsTrendingViewController()
+            let vc = UINavigationController(rootViewController: NewsTrendingViewController())
             vc.modalPresentationStyle = .fullScreen
-            navigationController?.popViewController(animated: false)
-            navigationController?.pushViewController(vc, animated: true)
+            present(vc, animated: true)
         } else {
             
             addToRegisteredUsers()

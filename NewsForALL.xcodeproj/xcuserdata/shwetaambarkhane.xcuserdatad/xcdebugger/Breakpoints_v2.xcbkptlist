@@ -154,8 +154,8 @@
             filePath = "NewsForALL/ViewControllers/LoginViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "setCurrentUser()"
             landmarkType = "7">
             <Locations>
@@ -195,47 +195,95 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "164C3CAC-45C2-4452-90C8-BBE7F2D432B7"
+            uuid = "38875FEB-FDAE-4951-885F-853E3355992C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NewsForALL/ViewControllers/NewsTrendingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "viewWillAppear(_:)"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "logout()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "164C3CAC-45C2-4452-90C8-BBE7F2D432B7 - 247ebcf5522e8303"
+                  uuid = "38875FEB-FDAE-4951-885F-853E3355992C - f541f15e79eff1a4"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "NewsForALL.NewsTrendingViewController.viewWillAppear(Swift.Bool) -&gt; ()"
+                  symbolName = "NewsForALL.NewsTrendingViewController.logout() -&gt; ()"
                   moduleName = "NewsForALL"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsTrendingViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "60">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "84">
                </Location>
                <Location
-                  uuid = "164C3CAC-45C2-4452-90C8-BBE7F2D432B7 - 247ebcf5522e8303"
+                  uuid = "38875FEB-FDAE-4951-885F-853E3355992C - f541f15e79eff1a4"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "NewsForALL.NewsTrendingViewController.viewWillAppear(Swift.Bool) -&gt; ()"
+                  symbolName = "NewsForALL.NewsTrendingViewController.logout() -&gt; ()"
                   moduleName = "NewsForALL"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsTrendingViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "56">
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "80">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "08C234CC-A65F-4428-B9AA-F1EEB08AAC6D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NewsForALL/ViewControllers/NewsTrendingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "logout()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "08C234CC-A65F-4428-B9AA-F1EEB08AAC6D - f541f15e79eff0bc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewsForALL.NewsTrendingViewController.logout() -&gt; ()"
+                  moduleName = "NewsForALL"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsTrendingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "736">
+               </Location>
+               <Location
+                  uuid = "08C234CC-A65F-4428-B9AA-F1EEB08AAC6D - f541f15e79eff0fe"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewsForALL.NewsTrendingViewController.logout() -&gt; ()"
+                  moduleName = "NewsForALL"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsTrendingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
+                  offsetFromSymbolStart = "764">
                </Location>
             </Locations>
          </BreakpointContent>
