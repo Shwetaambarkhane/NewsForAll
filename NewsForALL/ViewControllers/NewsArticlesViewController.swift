@@ -11,8 +11,8 @@ import UIKit
 class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, ArticleCellDelegate {
 
     weak var collectionView: UICollectionView!
-    private var newsData = [Any]()
-    private var request: NSMutableURLRequest
+    private var newsData: [Article]?
+    private var url: URL?
     
     lazy var refresher: UIRefreshControl = {
        let refresher = UIRefreshControl()
@@ -23,8 +23,8 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
     }()
     
     
-    init(request: NSMutableURLRequest) {
-        self.request = request
+    init(url: URL?) {
+        self.url = url
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -62,8 +62,12 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
     
     @objc
     func createApi() {
+        guard let url = url else {
+            print("URL cannot be nil")
+            return
+        }
         let session = URLSession.shared
-        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+        let dataTask = session.dataTask(with: url) { (data, response, error) -> Void in
             if (error != nil) {
                 print(error as Any)
             }
@@ -73,23 +77,24 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
                 print("No data")
                 return
             }
-
-            // serialise the data / NSData object into Dictionary [String : Any]
-            guard let json = (try? JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers)) as? [String: Any] else {
-                print("Not containing JSON")
-                return
-            }
-
-            self.newsData = json["value"] as! [Any]
-            if self.newsData.first is [String : Any] {
-                DispatchQueue.main.async {
-                    self.collectionView.invalidateIntrinsicContentSize()
-                    self.collectionView.reloadData()//Reload here
-                    self.refresher.endRefreshing()
+            
+            let decoder = JSONDecoder()
+            do {
+                let newsFeed = try decoder.decode(NewsFeed.self, from: content)
+                
+                self.newsData = newsFeed.articles
+                if self.newsData != nil {
+                    DispatchQueue.main.async {
+                        self.collectionView.invalidateIntrinsicContentSize()
+                        self.collectionView.reloadData()//Reload here
+                        self.refresher.endRefreshing()
+                    }
                 }
+            } catch {
+                print("Error in JSON Parsing")
             }
             // update UI using the response here
-        })
+        }
         dataTask.resume()
     }
     
@@ -129,6 +134,10 @@ extension NewsArticlesViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let newsData = newsData else {
+            print("No data")
+            return 0
+        }
         return newsData.count
     }
     
@@ -138,12 +147,12 @@ extension NewsArticlesViewController: UICollectionViewDataSource {
             for: indexPath) as! ArticleCell
         cell.delegate = self
         
-        guard let data = newsData[indexPath.row] as? [String : Any] else {
+        guard let data = newsData else {
             print("No data")
             return UICollectionViewCell()
         }
         
-        let viewdata = ArticleViewData(articleDescription: data["description"] as! String, articleURL: data["url"] as! String)
+        let viewdata = ArticleViewData(articleDescription: data[indexPath.row].title!, articleURL: data[indexPath.row].url!)
         cell.bind(with: viewdata)
         return cell
     }

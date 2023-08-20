@@ -189,6 +189,21 @@
                   endingLineNumber = "303"
                   offsetFromSymbolStart = "124">
                </Location>
+               <Location
+                  uuid = "31469826-9A67-4365-A7E0-932DD34B2725 - 38df6e4351f296e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewsForALL.LoginViewController.setCurrentUser() -&gt; ()"
+                  moduleName = "NewsForALL"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/LoginViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "302"
+                  endingLineNumber = "302"
+                  offsetFromSymbolStart = "124">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -196,14 +211,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "38875FEB-FDAE-4951-885F-853E3355992C"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NewsForALL/ViewControllers/NewsTrendingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "setTabButtonsView()"
             landmarkType = "7">
             <Locations>
@@ -237,6 +252,21 @@
                   endingLineNumber = "90"
                   offsetFromSymbolStart = "80">
                </Location>
+               <Location
+                  uuid = "38875FEB-FDAE-4951-885F-853E3355992C - d3258a2f37969855"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewsForALL.NewsTrendingViewController.setTabButtonsView() -&gt; ()"
+                  moduleName = "NewsForALL"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsTrendingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "77"
+                  endingLineNumber = "77"
+                  offsetFromSymbolStart = "2648">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -244,14 +274,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "08C234CC-A65F-4428-B9AA-F1EEB08AAC6D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NewsForALL/ViewControllers/NewsTrendingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
             landmarkName = "logout()"
             landmarkType = "7">
             <Locations>
@@ -284,6 +314,69 @@
                   startingLineNumber = "100"
                   endingLineNumber = "100"
                   offsetFromSymbolStart = "764">
+               </Location>
+               <Location
+                  uuid = "08C234CC-A65F-4428-B9AA-F1EEB08AAC6D - f541f15e79eff18b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewsForALL.NewsTrendingViewController.logout() -&gt; ()"
+                  moduleName = "NewsForALL"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsTrendingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "768">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "706FB1B2-8B0D-42F4-8244-BD1141E0C63D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NewsForALL/ViewControllers/NewsArticlesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "createApi()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "706FB1B2-8B0D-42F4-8244-BD1141E0C63D - 3c0f9b1264cb1342"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in NewsForALL.NewsArticlesViewController.createApi() -&gt; ()"
+                  moduleName = "NewsForALL"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsArticlesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "732">
+               </Location>
+               <Location
+                  uuid = "706FB1B2-8B0D-42F4-8244-BD1141E0C63D - 3c0f9b1264cb1342"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in NewsForALL.NewsArticlesViewController.createApi() -&gt; ()"
+                  moduleName = "NewsForALL"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsArticlesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "684">
                </Location>
             </Locations>
          </BreakpointContent>

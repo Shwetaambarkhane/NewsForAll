@@ -10,19 +10,8 @@ import UIKit
 class NewsOfCategoryViewController: NewsArticlesViewController {
     
     init(category: String) {
-        let headers = [
-            "X-BingApis-SDK": "true",
-            "Accept-Language": "English",
-            "X-RapidAPI-Key": "35e69d2f67mshfa8f9e7673f71f6p140f22jsn2cfd05349106",
-            "X-RapidAPI-Host": "bing-news-search1.p.rapidapi.com"
-        ]
-        
-        let request = NSMutableURLRequest(url: NSURL(string: "https://bing-news-search1.p.rapidapi.com/news/search?q=\(category)&freshness=Day&textFormat=Raw&safeSearch=Off")! as URL,
-                                          cachePolicy: .useProtocolCachePolicy,
-                                          timeoutInterval: 10.0)
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields = headers
-        super.init(request: request)
+        let url = URL(string: "https://newsapi.org/v2/top-headlines?country=us&category=\(category)&apiKey=b966706827474443909530ca0afee468")
+        super.init(url: url)
     }
     
     required init?(coder: NSCoder) {

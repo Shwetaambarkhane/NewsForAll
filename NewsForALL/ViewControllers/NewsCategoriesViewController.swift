@@ -11,7 +11,7 @@ class NewsCategoriesViewController: UIViewController, TabButtonsViewDelegate {
 
     weak var collectionView: UICollectionView!
     weak var tabButtonsView: UIView!
-    private var categoriesData = ["Education", "Business", "Sports"]
+    private var categoriesData = ["Business", "Sports", "Entertainment", "Technology", "Science"]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -80,8 +80,6 @@ extension NewsCategoriesViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         didCellTapped(withCategory: categoriesData[indexPath.row])
-        
-        print(indexPath.row + 1)
     }
 }
 
