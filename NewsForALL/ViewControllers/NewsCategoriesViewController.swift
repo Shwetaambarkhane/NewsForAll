@@ -61,8 +61,7 @@ class NewsCategoriesViewController: UIViewController, TabButtonsViewDelegate {
     func didTrendingButtonTapped() {
         let vc = NewsTrendingViewController()
         vc.modalPresentationStyle = .fullScreen
-        navigationController?.popViewController(animated: false)
-        navigationController?.pushViewController(vc, animated: true)
+        navigationController?.setViewControllers([vc], animated: false)
     }
     
     func didCategoriesButtonTapped() {

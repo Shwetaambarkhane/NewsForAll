@@ -105,8 +105,7 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
     func didCategoriesButtonTapped() {
         let vc = NewsCategoriesViewController()
         vc.modalPresentationStyle = .fullScreen
-        vc.dismiss(animated: false)
-        navigationController?.pushViewController(vc, animated: true)
+        navigationController?.setViewControllers([vc], animated: false)
     }
     
     func didReadMoreButtonTapped(urlString: String) {
