@@ -15,6 +15,9 @@ class ArticleCell: UICollectionViewCell {
     
     weak var articleHeading: UILabel!
     weak var readMoreButton: UIButton!
+    weak var authorLabel: UILabel!
+    weak var horizontalStackView: UIStackView!
+    
     var readMoreUrl: String!
     var delegate: ArticleCellDelegate?
     
@@ -31,9 +34,7 @@ class ArticleCell: UICollectionViewCell {
         layer.borderWidth = 1
         layer.borderColor = UIColor.gray.cgColor
         setArticleHeadingLabel()
-        setReadMoreButton()
-        setArticleHeadingLabelConstraints()
-        setReadMoreButtonConstraints()
+        setHorizontalStackView()
     }
     
     func setArticleHeadingLabel() {
@@ -43,6 +44,8 @@ class ArticleCell: UICollectionViewCell {
         articleHeading.textColor = .black
         addSubview(articleHeading)
         self.articleHeading = articleHeading
+        
+        setArticleHeadingLabelConstraints()
     }
     
     func setArticleHeadingLabelConstraints() {
@@ -51,6 +54,28 @@ class ArticleCell: UICollectionViewCell {
             articleHeading.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             articleHeading.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             articleHeading.topAnchor.constraint(equalTo: topAnchor, constant: 10)
+        ])
+    }
+    
+    func setHorizontalStackView() {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 5
+        
+        addSubview(stackView)
+        self.horizontalStackView = stackView
+        
+        setHorizontalStackViewConstraints()
+        setReadMoreButton()
+        setAuthorLabel()
+    }
+    
+    func setHorizontalStackViewConstraints() {
+        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            horizontalStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            horizontalStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            horizontalStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
         ])
     }
     
@@ -64,16 +89,22 @@ class ArticleCell: UICollectionViewCell {
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
         
         readMoreButton.configuration = configuration
-        addSubview(readMoreButton)
+        horizontalStackView.addArrangedSubview(readMoreButton)
+        
+        readMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        readMoreButton.setContentHuggingPriority(.required, for: .horizontal)
+        
         self.readMoreButton = readMoreButton
     }
     
-    func setReadMoreButtonConstraints() {
-        readMoreButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            readMoreButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            readMoreButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
-        ])
+    func setAuthorLabel() {
+        let authorLabel = UILabel()
+        authorLabel.font = UIFont.systemFont(ofSize: 15)
+        authorLabel.textColor = .black
+        authorLabel.textAlignment = .right
+        addSubview(authorLabel)
+        horizontalStackView.addArrangedSubview(authorLabel)
+        self.authorLabel = authorLabel
     }
     
     @objc
@@ -84,5 +115,8 @@ class ArticleCell: UICollectionViewCell {
     func bind(with data: ArticleViewData) {
         articleHeading.text = data.articleDescription
         readMoreUrl = data.articleURL
+        if let author = data.author {
+            authorLabel.text = "by: \(author)"
+        }
     }
 }

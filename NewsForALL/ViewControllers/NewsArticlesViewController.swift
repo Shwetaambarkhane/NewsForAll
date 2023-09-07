@@ -152,7 +152,7 @@ extension NewsArticlesViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let viewdata = ArticleViewData(articleDescription: data[indexPath.row].title!, articleURL: data[indexPath.row].url!)
+        let viewdata = ArticleViewData(articleDescription: data[indexPath.row].title!, articleURL: data[indexPath.row].url!, author: data[indexPath.row].author)
         cell.bind(with: viewdata)
         return cell
     }

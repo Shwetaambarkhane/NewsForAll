@@ -1,20 +1,13 @@
 //
-//  NewsInfoViewData.swift
+//  NewsInfoViewData1.swift
 //  NewsForALL
 //
-//  Created by Shweta Ambarkhane on 21/05/23.
+//  Created by Shweta Ambarkhane on 07/09/23.
 //
 
 import Foundation
 
-class NewsInfoViewData {
-    
+struct NewsInfoViewData {
     let tabType: String
     let allArticles: [ArticleViewData]
-    
-    init(tabType: String, allArticles: [ArticleViewData]) {
-        self.tabType = tabType
-        self.allArticles = allArticles
-    }
-    
 }

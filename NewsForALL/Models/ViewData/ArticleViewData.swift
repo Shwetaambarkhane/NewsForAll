@@ -1,19 +1,14 @@
 //
-//  ArticleViewData.swift
+//  ArticleViewData1.swift
 //  NewsForALL
 //
-//  Created by Shweta Ambarkhane on 23/04/23.
+//  Created by Shweta Ambarkhane on 07/09/23.
 //
 
 import Foundation
 
-class ArticleViewData {
-    
+struct ArticleViewData {
     let articleDescription: String
     let articleURL: String
-    
-    init(articleDescription: String, articleURL: String) {
-        self.articleDescription = articleDescription
-        self.articleURL = articleURL
-    }
+    let author: String?
 }
