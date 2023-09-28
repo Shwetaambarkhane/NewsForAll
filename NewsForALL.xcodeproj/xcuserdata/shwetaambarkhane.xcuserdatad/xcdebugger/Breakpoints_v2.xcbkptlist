@@ -201,8 +201,8 @@
             filePath = "NewsForALL/ViewControllers/NewsTrendingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "setTabButtonsView()"
             landmarkType = "7">
             <Locations>
@@ -250,69 +250,6 @@
                   startingLineNumber = "77"
                   endingLineNumber = "77"
                   offsetFromSymbolStart = "2648">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "08C234CC-A65F-4428-B9AA-F1EEB08AAC6D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NewsForALL/ViewControllers/NewsTrendingViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "logout()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "08C234CC-A65F-4428-B9AA-F1EEB08AAC6D - f541f15e79eff0bc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "NewsForALL.NewsTrendingViewController.logout() -&gt; ()"
-                  moduleName = "NewsForALL"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsTrendingViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98"
-                  offsetFromSymbolStart = "736">
-               </Location>
-               <Location
-                  uuid = "08C234CC-A65F-4428-B9AA-F1EEB08AAC6D - f541f15e79eff0fe"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "NewsForALL.NewsTrendingViewController.logout() -&gt; ()"
-                  moduleName = "NewsForALL"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsTrendingViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
-                  offsetFromSymbolStart = "764">
-               </Location>
-               <Location
-                  uuid = "08C234CC-A65F-4428-B9AA-F1EEB08AAC6D - f541f15e79eff18b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "NewsForALL.NewsTrendingViewController.logout() -&gt; ()"
-                  moduleName = "NewsForALL"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shwetaambarkhane/Documents/MyProject/NewsForALL/NewsForALL/ViewControllers/NewsTrendingViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "89"
-                  endingLineNumber = "89"
-                  offsetFromSymbolStart = "768">
                </Location>
             </Locations>
          </BreakpointContent>

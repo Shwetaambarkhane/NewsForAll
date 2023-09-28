@@ -12,11 +12,6 @@ class NewsTrendingViewController: NewsArticlesViewController {
     
     weak var tabButtonsView: UIView!
     
-    // Reference to manage object context
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    var currentUsers: [CurrentUser]?
-    
     init() {
         let url = URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=b966706827474443909530ca0afee468")
         super.init(url: url)
@@ -24,11 +19,6 @@ class NewsTrendingViewController: NewsArticlesViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        fetchCurrentUsers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,18 +30,11 @@ class NewsTrendingViewController: NewsArticlesViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
         navigationController?.navigationBar.standardAppearance = barAppearance
         
-        let logoutImage = UIImage(named: "Logout")
-        let button = UIButton(type: .custom)
-        button.setImage(logoutImage, for: .normal)
-        button.addTarget(self, action: #selector(logout), for: .allTouchEvents)
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            button.heightAnchor.constraint(equalToConstant: 30),
-            button.widthAnchor.constraint(equalToConstant: 30)
-        ])
-        let barButton = UIBarButtonItem(customView: button)
-        navigationItem.rightBarButtonItem = barButton
+        let navigationComponents = NavigationComponents()
+        let profilebutton = navigationComponents.createProfileButton()
+        profilebutton.addTarget(self, action: #selector(tapProfileButton), for: .touchUpInside)
+        let profilebarButton = UIBarButtonItem(customView: profilebutton)
+        navigationItem.leftBarButtonItem = profilebarButton
         
         super.viewWillAppear(animated)
         setTabButtonsView()
@@ -79,29 +62,9 @@ class NewsTrendingViewController: NewsArticlesViewController {
     }
     
     @objc
-    func logout() {
-        if currentUsers != nil && currentUsers!.count > 0 {
-            context.delete(currentUsers![0])
-        }
-        
-        // save context
-        do {
-            try context.save()
-        } catch {
-            print("Unsuccessful save request")
-        }
-        
-        let vc = LoginViewController()
+    func tapProfileButton() {
+        let vc = ProfileViewController()
         vc.modalPresentationStyle = .fullScreen
-        vc.navigationController?.dismiss(animated: false)
-        present(vc, animated: true)
-    }
-    
-    func fetchCurrentUsers() {
-        do {
-            currentUsers = try context.fetch(CurrentUser.fetchRequest())
-        } catch {
-            print("Unsuccessful current user fetch request")
-        }
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

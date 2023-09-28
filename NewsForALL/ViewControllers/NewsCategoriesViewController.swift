@@ -16,6 +16,13 @@ class NewsCategoriesViewController: UIViewController, TabButtonsViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "Categories"
+        
+        let navigationComponents = NavigationComponents()
+        let profilebutton = navigationComponents.createProfileButton()
+        profilebutton.addTarget(self, action: #selector(tapProfileButton), for: .touchUpInside)
+        let profilebarButton = UIBarButtonItem(customView: profilebutton)
+        navigationItem.leftBarButtonItem = profilebarButton
+        
         setCollectionView()
         setTabButtonsView()
 
@@ -70,6 +77,13 @@ class NewsCategoriesViewController: UIViewController, TabButtonsViewDelegate {
     
     func didCellTapped(withCategory category: String) {
         let vc = NewsOfCategoryViewController(category: category)
+        vc.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc
+    func tapProfileButton() {
+        let vc = ProfileViewController()
         vc.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(vc, animated: true)
     }
