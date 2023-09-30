@@ -9,6 +9,7 @@ import UIKit
 
 protocol ArticleCellDelegate {
     func didReadMoreButtonTapped(urlString: String)
+    func didAuthorLabelTapped(authorsList: [String]?)
 }
 
 class ArticleCell: UICollectionViewCell {
@@ -100,8 +101,13 @@ class ArticleCell: UICollectionViewCell {
     func setAuthorLabel() {
         let authorLabel = UILabel()
         authorLabel.font = UIFont.systemFont(ofSize: 15)
-        authorLabel.textColor = .black
+        authorLabel.textColor = .link
         authorLabel.textAlignment = .right
+        authorLabel.isUserInteractionEnabled = true
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapAuthorLabel))
+        authorLabel.addGestureRecognizer(gestureRecognizer)
+        
         addSubview(authorLabel)
         horizontalStackView.addArrangedSubview(authorLabel)
         self.authorLabel = authorLabel
@@ -110,6 +116,19 @@ class ArticleCell: UICollectionViewCell {
     @objc
     func tapReadMoreButton() {
         delegate?.didReadMoreButtonTapped(urlString: readMoreUrl)
+    }
+    
+    @objc
+    func tapAuthorLabel() {
+        guard let authorsListString = authorLabel.text else {
+            delegate?.didAuthorLabelTapped(authorsList: nil)
+            return
+        }
+        
+        let arrayOfAuthors = authorsListString.components(separatedBy: ",")
+            .map { $0.replacingOccurrences(of: "by: ", with: "") }
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+        delegate?.didAuthorLabelTapped(authorsList: arrayOfAuthors)
     }
 
     func bind(with data: ArticleViewData) {

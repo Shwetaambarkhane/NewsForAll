@@ -113,6 +113,12 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
         webVC.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(webVC, animated: true)
     }
+    
+    func didAuthorLabelTapped(authorsList: [String]?) {
+        let bottomSheetVC = AuthorsBottomsheetController(authorsList: authorsList)
+        bottomSheetVC.modalPresentationStyle = .formSheet
+        present(bottomSheetVC, animated: true, completion: nil)
+    }
 }
 
 extension NewsArticlesViewController: UICollectionViewDelegateFlowLayout {
