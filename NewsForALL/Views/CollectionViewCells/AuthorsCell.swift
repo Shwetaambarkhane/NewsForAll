@@ -5,6 +5,7 @@
 //  Created by Shweta Ambarkhane on 30/09/23.
 //
 
+import CoreData
 import UIKit
 
 class AuthorsCell: UICollectionViewCell {
@@ -13,8 +14,14 @@ class AuthorsCell: UICollectionViewCell {
     weak var nameLabel: UILabel!
     weak var subscribeButton: UIButton!
     
+    // Reference to manage object context
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    var currentUsers: [CurrentUser]?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        fetchCurrentUsers()
         setHorizontalStackView()
         setNameLabel()
         setSubscribeButton()
@@ -54,14 +61,6 @@ class AuthorsCell: UICollectionViewCell {
     
     func setSubscribeButton() {
         let subscribeButton = UIButton()
-        subscribeButton.setTitle("Subscribe", for: .normal)
-        subscribeButton.addTarget(self, action: #selector(tapSubscribeButton), for: .touchUpInside)
-        var configuration = UIButton.Configuration.filled()
-        configuration.title = "title"
-        configuration.baseBackgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
-        
-        subscribeButton.configuration = configuration
         horizontalStackView.addArrangedSubview(subscribeButton)
         
         subscribeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -70,12 +69,116 @@ class AuthorsCell: UICollectionViewCell {
         self.subscribeButton = subscribeButton
     }
     
+    func updateButton() {
+        let isSubscribedAuthor = isSubscribed()
+        let buttonTitle = isSubscribedAuthor ? "Subscribed" : "Subscribe"
+        subscribeButton.setTitle(buttonTitle, for: .normal)
+        subscribeButton.addTarget(self, action: #selector(tapSubscribeButton), for: .touchUpInside)
+        var configuration = UIButton.Configuration.filled()
+        configuration.title = "title"
+        configuration.baseBackgroundColor = isSubscribedAuthor ? .gray : UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
+        
+        subscribeButton.configuration = configuration
+    }
+    
+    func isSubscribed() -> Bool {
+        guard let currentUsers = currentUsers else {
+            return false
+        }
+        let currentUser = currentUsers.first!
+        
+        guard let name = nameLabel.text else {
+            print("No author found to subscribe")
+            return false
+        }
+        
+        var isSubscribedAuthor = false
+        currentUser.subscribeAuthors?.forEach {
+            if ($0 as! SubscribeAuthor).authorName == name {
+                isSubscribedAuthor = true
+            }
+        }
+        
+        return isSubscribedAuthor
+    }
+    
     @objc
     func tapSubscribeButton() {
-        print("temp text")
+        guard let currentUsers = currentUsers else {
+            return
+        }
+        let currentUser = currentUsers.first!
+        
+        guard let name = nameLabel.text else {
+            print("No author found to subscribe")
+            return
+        }
+        var subscribedAuthors: NSMutableSet
+        
+        if isSubscribed() {
+            if currentUser.subscribeAuthors == nil || currentUser.subscribeAuthors?.count == 0 {
+                subscribedAuthors = NSMutableSet()
+            } else {
+                subscribedAuthors = NSMutableSet(set: currentUser.subscribeAuthors!)
+            }
+            currentUser.subscribeAuthors?.forEach {
+                if ($0 as! SubscribeAuthor).authorName == name {
+                    subscribedAuthors.remove($0)
+                }
+            }
+            currentUser.subscribeAuthors = subscribedAuthors
+            
+            do {
+                let subscription = try context.fetch(SubscribeAuthor.fetchRequest())
+                context.delete(subscription[0])
+            } catch {
+                print("Unsuccessful SubscribeAuthor fetch request")
+            }
+            
+            // save context
+            do {
+                try context.save()
+            } catch {
+                print("Unsuccessful save request")
+            }
+            
+            updateButton()
+            return
+        }
+        
+        // create new subscription
+        let newSubscription = SubscribeAuthor(context: context)
+        newSubscription.authorName = name
+        
+        if currentUser.subscribeAuthors == nil || currentUser.subscribeAuthors?.count == 0 {
+            subscribedAuthors = NSMutableSet()
+        } else {
+            subscribedAuthors = NSMutableSet(set: currentUser.subscribeAuthors!)
+        }
+        subscribedAuthors.add(newSubscription)
+        currentUser.subscribeAuthors = subscribedAuthors
+        
+        // save context
+        do {
+            try context.save()
+        } catch {
+            print("Unsuccessful save request")
+        }
+        
+        updateButton()
     }
     
     func bind(with name: String) {
         nameLabel.text = name
+        updateButton()
+    }
+    
+    func fetchCurrentUsers() {
+        do {
+            currentUsers = try context.fetch(CurrentUser.fetchRequest())
+        } catch {
+            print("Unsuccessful current user fetch request")
+        }
     }
 }
