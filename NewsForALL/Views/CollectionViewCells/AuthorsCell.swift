@@ -114,20 +114,18 @@ class AuthorsCell: UICollectionViewCell {
             print("No author found to subscribe")
             return
         }
-        var subscribedAuthors: NSMutableSet
         
         if isSubscribed() {
-            if currentUser.subscribeAuthors == nil || currentUser.subscribeAuthors?.count == 0 {
-                subscribedAuthors = NSMutableSet()
-            } else {
-                subscribedAuthors = NSMutableSet(set: currentUser.subscribeAuthors!)
-            }
-            currentUser.subscribeAuthors?.forEach {
-                if ($0 as! SubscribeAuthor).authorName == name {
-                    subscribedAuthors.remove($0)
+            if let valueToDelete = currentUser.subscribeAuthors?.first(where: { ($0 as! SubscribeAuthor).authorName == name }) as? SubscribeAuthor {
+                currentUser.removeFromSubscribeAuthors(valueToDelete)
+                
+                // save context
+                do {
+                    try context.save()
+                } catch {
+                    print("Unsuccessful save request")
                 }
             }
-            currentUser.subscribeAuthors = subscribedAuthors
             
             do {
                 let subscription = try context.fetch(SubscribeAuthor.fetchRequest())
@@ -151,6 +149,7 @@ class AuthorsCell: UICollectionViewCell {
         let newSubscription = SubscribeAuthor(context: context)
         newSubscription.authorName = name
         
+        var subscribedAuthors: NSMutableSet
         if currentUser.subscribeAuthors == nil || currentUser.subscribeAuthors?.count == 0 {
             subscribedAuthors = NSMutableSet()
         } else {

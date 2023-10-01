@@ -14,9 +14,10 @@ class ProfileViewController: UIViewController {
     weak var profileNameLabel: UILabel!
     weak var logoutButton: UIButton!
     weak var collectionView: UICollectionView!
+    weak var dividerView: UIView!
     
     // Data for the list of names
-    let names = ["John", "Alice", "Bob", "Eva", "Charlie"]
+    var names = [String]()
     
     // Reference to manage object context
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -28,14 +29,19 @@ class ProfileViewController: UIViewController {
         
         view.backgroundColor = .white
         fetchCurrentUsers()
+        getSubscribedAuthorsList()
         
         setProfileImage()
         setProfileNameLabel()
+        setDividerView()
+        setCollectionView()
         setLogoutButton()
         
         // Set the collection view's delegate and data source
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
+        collectionView.register(AuthorsCell.self, forCellWithReuseIdentifier: "authorCell")
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerReuseIdentifier")
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         
         // Set up Auto Layout constraints
@@ -54,15 +60,31 @@ class ProfileViewController: UIViewController {
             profileNameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
             profileNameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 16),
             
-//            // Collection View
-//            collectionView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 16),
-//            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-//            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
             // Logout Button
-            logoutButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 16),
+            logoutButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16),
             logoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ])
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        collectionView.heightAnchor.constraint(equalToConstant: collectionView.contentSize.height).isActive = true
+    }
+    
+    func getSubscribedAuthorsList() {
+        guard let currentUsers = currentUsers else {
+            return
+        }
+        let currentUser = currentUsers.first!
+        
+        currentUser.subscribeAuthors?.forEach {
+            let name = ($0 as! SubscribeAuthor).authorName
+            guard let name = name else {
+                return
+            }
+            names.append(name)
+        }
     }
     
     func setProfileImage() {
@@ -82,6 +104,36 @@ class ProfileViewController: UIViewController {
         
         view.addSubview(profileNameLabel)
         self.profileNameLabel = profileNameLabel
+    }
+    
+    func setDividerView() {
+        let divider = UIView()
+        divider.backgroundColor = .black
+        divider.alpha = 0.2
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(divider)
+        dividerView = divider
+
+        NSLayoutConstraint.activate([
+            dividerView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 10),
+            dividerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            dividerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            dividerView.heightAnchor.constraint(equalToConstant: 1)
+        ])
+    }
+    
+    func setCollectionView() {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.backgroundColor = .white
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            collectionView.topAnchor.constraint(equalTo: dividerView.bottomAnchor, constant: 10)
+        ])
+        self.collectionView = collectionView
     }
     
     func setLogoutButton() {
@@ -123,42 +175,58 @@ class ProfileViewController: UIViewController {
 
 }
 
-extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension ProfileViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.size.width - 20, height: 50)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerReuseIdentifier", for: indexPath)
+            
+            let titleLabel = UILabel()
+            if names.count < 1 {
+                titleLabel.text = "No Authors Subscribed"
+            } else {
+                titleLabel.text = "Subscribed Authors"
+            }
+            titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+            titleLabel.frame = CGRect(x: 10, y: 0, width: collectionView.frame.size.width - 20, height: 30)
+            headerView.addSubview(titleLabel)
+            return headerView
+        }
+        return UICollectionReusableView()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        // Return the desired size for the header view
+        return CGSize(width: collectionView.bounds.width, height: 30)
+    }
+
+}
+
+extension ProfileViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return names.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NameCell", for: indexPath) as! NameCollectionViewCell
-        cell.nameLabel.text = names[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "authorCell",
+            for: indexPath) as! AuthorsCell
+        
+        let name = names[indexPath.row]
+        cell.bind(with: name)
         return cell
-    }
-    
-    // Set the size of collection view cells
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // You can customize the cell size here
-        return CGSize(width: 100, height: 100)
-    }
-}
-
-class NameCollectionViewCell: UICollectionViewCell {
-    weak var nameLabel: UILabel!
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupViews() {
-        let nameLabel = UILabel()
-        nameLabel.font = UIFont.systemFont(ofSize: 18)
-        nameLabel.textColor = .black
-        addSubview(nameLabel)
-        self.nameLabel = nameLabel
     }
 }
