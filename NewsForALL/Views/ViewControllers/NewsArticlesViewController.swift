@@ -11,7 +11,7 @@ import UIKit
 class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, ArticleCellDelegate {
 
     weak var collectionView: UICollectionView!
-    private var newsData: [Article]?
+    private var newsData: [ArticleViewModel]?
     private var url: URL?
     
     lazy var refresher: UIRefreshControl = {
@@ -81,8 +81,9 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
             let decoder = JSONDecoder()
             do {
                 let newsFeed = try decoder.decode(NewsFeed.self, from: content)
-                
-                self.newsData = newsFeed.articles
+                let viewModel = NewsFeedViewModel(newsFeed: newsFeed)
+                    
+                self.newsData = viewModel.articleModels
                 if self.newsData != nil {
                     DispatchQueue.main.async {
                         self.collectionView.invalidateIntrinsicContentSize()
@@ -157,7 +158,7 @@ extension NewsArticlesViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let viewdata = ArticleViewData(articleDescription: data[indexPath.row].title!, articleURL: data[indexPath.row].url!, author: data[indexPath.row].author)
+        let viewdata = ArticleViewData(articleDescription: data[indexPath.row].title, articleURL: data[indexPath.row].url, author: data[indexPath.row].author)
         cell.bind(with: viewdata)
         return cell
     }

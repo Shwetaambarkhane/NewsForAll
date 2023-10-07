@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import Dispatch
 import UIKit
 
 class AuthorsCell: UICollectionViewCell {

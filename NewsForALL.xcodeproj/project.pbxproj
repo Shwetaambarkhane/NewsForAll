@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AA1741BE2A44BBB10061E9B0 /* NewsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1741BD2A44BBB10061E9B0 /* NewsWebViewController.swift */; };
+		AA21CF502AD167F300AC5055 /* NewsFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA21CF4F2AD167F300AC5055 /* NewsFeedViewModel.swift */; };
+		AA21CF522AD1935800AC5055 /* ArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA21CF512AD1935800AC5055 /* ArticleViewModel.swift */; };
 		AA49CFE92AA9CBF8004F3311 /* ArticleViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA49CFE82AA9CBF8004F3311 /* ArticleViewData.swift */; };
 		AA49CFEB2AA9CC2A004F3311 /* NewsInfoViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA49CFEA2AA9CC2A004F3311 /* NewsInfoViewData.swift */; };
 		AA50D0BF2A81577300A219B9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA50D0BE2A81577300A219B9 /* LoginViewController.swift */; };
@@ -35,6 +37,8 @@
 
 /* Begin PBXFileReference section */
 		AA1741BD2A44BBB10061E9B0 /* NewsWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWebViewController.swift; sourceTree = "<group>"; };
+		AA21CF4F2AD167F300AC5055 /* NewsFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedViewModel.swift; sourceTree = "<group>"; };
+		AA21CF512AD1935800AC5055 /* ArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewModel.swift; sourceTree = "<group>"; };
 		AA49CFE82AA9CBF8004F3311 /* ArticleViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewData.swift; sourceTree = "<group>"; };
 		AA49CFEA2AA9CC2A004F3311 /* NewsInfoViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsInfoViewData.swift; sourceTree = "<group>"; };
 		AA50D0BE2A81577300A219B9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +77,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA21CF4E2AD167DB00AC5055 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AA21CF4F2AD167F300AC5055 /* NewsFeedViewModel.swift */,
+				AA21CF512AD1935800AC5055 /* ArticleViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		AA6AACF229F5607B001A5560 = {
 			isa = PBXGroup;
 			children = (
@@ -92,9 +105,9 @@
 		AA6AACFD29F5607B001A5560 /* NewsForALL */ = {
 			isa = PBXGroup;
 			children = (
+				AA21CF4E2AD167DB00AC5055 /* ViewModel */,
 				AA6AAD1A29F56A3E001A5560 /* Models */,
 				AA6AAD1729F56A06001A5560 /* Views */,
-				AAC0B1AF2A80B3ED00411C0C /* ViewControllers */,
 				AA6AACFE29F5607B001A5560 /* AppDelegate.swift */,
 				AA6AAD0029F5607B001A5560 /* SceneDelegate.swift */,
 				AA6AAD0229F5607B001A5560 /* ViewController.swift */,
@@ -123,6 +136,7 @@
 				AA6AAD1429F568C6001A5560 /* CollectionViewCells */,
 				AA6AAD1829F56A1A001A5560 /* TabButtonsView.swift */,
 				AAB010BD2AC584260009DA04 /* NavigationComponents.swift */,
+				AAC0B1AF2A80B3ED00411C0C /* ViewControllers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -255,12 +269,14 @@
 				AA6AAD1629F568DA001A5560 /* ArticleCell.swift in Sources */,
 				AAB63B7F2A9204AF008FEE31 /* NewsFeed.swift in Sources */,
 				AAE107462AC6AF4A004846A5 /* AuthorsBottomsheetController.swift in Sources */,
+				AA21CF502AD167F300AC5055 /* NewsFeedViewModel.swift in Sources */,
 				AA49CFE92AA9CBF8004F3311 /* ArticleViewData.swift in Sources */,
 				AA6AAD1929F56A1A001A5560 /* TabButtonsView.swift in Sources */,
 				AA49CFEB2AA9CC2A004F3311 /* NewsInfoViewData.swift in Sources */,
 				AA6AAD0129F5607B001A5560 /* SceneDelegate.swift in Sources */,
 				AAB63B812A92050B008FEE31 /* Article.swift in Sources */,
 				AADF5B0E2A83999400FD63BB /* CoreDataModel.xcdatamodeld in Sources */,
+				AA21CF522AD1935800AC5055 /* ArticleViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
