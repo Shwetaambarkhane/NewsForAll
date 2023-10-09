@@ -65,6 +65,10 @@ class NewsCategoriesViewController: UIViewController, TabButtonsViewDelegate {
         self.tabButtonsView = buttonsView
     }
     
+    func didLiveButtonTapped() {
+        print("Hello")
+    }
+    
     func didTrendingButtonTapped() {
         let vc = NewsTrendingViewController()
         vc.modalPresentationStyle = .fullScreen

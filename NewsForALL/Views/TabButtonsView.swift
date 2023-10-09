@@ -8,59 +8,85 @@
 import UIKit
 
 protocol TabButtonsViewDelegate {
+    func didLiveButtonTapped()
     func didTrendingButtonTapped()
     func didCategoriesButtonTapped()
 }
 
 class TabButtonsView: UIView {
     
+    weak var liveButton: UIButton!
     weak var trendingButton: UIButton!
     weak var categoriesButton: UIButton!
     var delegate: TabButtonsViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupTabButtons()
-        setupTabButtonConstraints()
+        setLiveButton()
+        setTrendingButton()
+        setCategoriesButton()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupTabButtons() {
-        let button1 = UIButton()
+    func setLiveButton() {
+        let button = UIButton()
+        let attrString1 = NSAttributedString(string: "Live", attributes: [
+            .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
+            .foregroundColor: UIColor.white
+        ])
+        button.setAttributedTitle(attrString1, for: .normal)
+        button.backgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
+        button.addTarget(self, action: #selector(didLiveButtonTapped), for: .touchUpInside)
+        
+        addSubview(button)
+        liveButton = button
+        
+        liveButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            liveButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            liveButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/3),
+            liveButton.topAnchor.constraint(equalTo: topAnchor),
+            liveButton.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+    
+    func setTrendingButton() {
+        let button = UIButton()
         let attrString1 = NSAttributedString(string: "Trending", attributes: [
             .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
             .foregroundColor: UIColor.white
         ])
-        button1.setAttributedTitle(attrString1, for: .normal)
-        button1.backgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
-        button1.addTarget(self, action: #selector(didTrendingButtonTapped), for: .touchUpInside)
+        button.setAttributedTitle(attrString1, for: .normal)
+        button.backgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
+        button.addTarget(self, action: #selector(didTrendingButtonTapped), for: .touchUpInside)
         
-        let button2 = UIButton()
-        let attrString2 = NSAttributedString(string: "Categories", attributes: [
-            .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
-            .foregroundColor: UIColor.white
-        ])
-        button2.setAttributedTitle(attrString2, for: .normal)
-        button2.backgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
-        button2.addTarget(self, action: #selector(didCategoriesButtonTapped), for: .touchUpInside)
+        addSubview(button)
+        trendingButton = button
         
-        addSubview(button1)
-        addSubview(button2)
-        self.trendingButton = button1
-        self.categoriesButton = button2
-    }
-    
-    func setupTabButtonConstraints() {
         trendingButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            trendingButton.leadingAnchor.constraint(equalTo: leadingAnchor),
-            trendingButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/2),
+            trendingButton.leadingAnchor.constraint(equalTo: liveButton.trailingAnchor),
+            trendingButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/3),
             trendingButton.topAnchor.constraint(equalTo: topAnchor),
             trendingButton.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+    
+    func setCategoriesButton() {
+        let button = UIButton()
+        let attrString1 = NSAttributedString(string: "Trending", attributes: [
+            .font: UIFont.systemFont(ofSize: 18, weight: .semibold),
+            .foregroundColor: UIColor.white
+        ])
+        button.setAttributedTitle(attrString1, for: .normal)
+        button.backgroundColor = UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
+        button.addTarget(self, action: #selector(didCategoriesButtonTapped), for: .touchUpInside)
+        
+        addSubview(button)
+        categoriesButton = button
         
         categoriesButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -69,6 +95,10 @@ class TabButtonsView: UIView {
             categoriesButton.topAnchor.constraint(equalTo: topAnchor),
             categoriesButton.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+    
+    @objc func didLiveButtonTapped() {
+        delegate?.didLiveButtonTapped()
     }
 
     @objc func didTrendingButtonTapped() {

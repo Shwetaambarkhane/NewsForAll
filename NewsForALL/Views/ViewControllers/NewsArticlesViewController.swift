@@ -99,6 +99,10 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
         dataTask.resume()
     }
     
+    func didLiveButtonTapped() {
+        print("Hello")
+    }
+    
     func didTrendingButtonTapped() {
         // No op
     }
