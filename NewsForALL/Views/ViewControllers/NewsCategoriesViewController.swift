@@ -66,7 +66,9 @@ class NewsCategoriesViewController: UIViewController, TabButtonsViewDelegate {
     }
     
     func didLiveButtonTapped() {
-        print("Hello")
+        let vc = LiveVideoViewController()
+        vc.modalPresentationStyle = .fullScreen
+        navigationController?.setViewControllers([vc], animated: false)
     }
     
     func didTrendingButtonTapped() {
