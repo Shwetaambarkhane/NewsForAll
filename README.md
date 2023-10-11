@@ -1,6 +1,9 @@
 # NewsForAll
 The iOS mobile application provides access to current and trending news from around the globe.
-The application boasts user-friendly functionality, allowing users to effortlessly navigate and explore news articles based on various categories.
+<br>Successfully integrated Core Data for efficient data storage and management including the incorporation of Authentication for security purposes.
+<br>Leveraged external APIs to fetch real-time news data and ensured up-to-date content for users.
+<br>Implemented features including category-based news, author subscriptions, and a profile management section, among others, to enhance the overall user experience.
+<br>The architecture pattern used in the app is MVVM.
 
 # Launch Screen
 ![Simulator Screenshot - iPhone 14 Pro - 2023-08-05 at 15 15 06](https://github.com/Shwetaambarkhane/NewsForAll/assets/66417077/04dc96b8-e01d-46af-ba4a-9a73cb36b01f)
