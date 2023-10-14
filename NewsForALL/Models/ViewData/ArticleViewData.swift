@@ -10,5 +10,5 @@ import Foundation
 struct ArticleViewData {
     let articleDescription: String
     let articleURL: String
-    let author: String?
+    let publisher: String?
 }

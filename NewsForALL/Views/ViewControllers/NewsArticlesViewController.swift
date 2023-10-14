@@ -115,8 +115,8 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
         navigationController?.pushViewController(webVC, animated: true)
     }
     
-    func didAuthorLabelTapped(authorsList: [String]?) {
-        let bottomSheetVC = AuthorsBottomsheetController(authorsList: authorsList)
+    func didPublisherLabelTapped(publishersList: [String]?) {
+        let bottomSheetVC = PublishersBottomsheetController(publishersList: publishersList)
         bottomSheetVC.modalPresentationStyle = .formSheet
         present(bottomSheetVC, animated: true, completion: nil)
     }
@@ -158,7 +158,7 @@ extension NewsArticlesViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let viewdata = ArticleViewData(articleDescription: data[indexPath.row].title, articleURL: data[indexPath.row].url, author: data[indexPath.row].author)
+        let viewdata = ArticleViewData(articleDescription: data[indexPath.row].title, articleURL: data[indexPath.row].url, publisher: data[indexPath.row].publisher)
         cell.bind(with: viewdata)
         return cell
     }
