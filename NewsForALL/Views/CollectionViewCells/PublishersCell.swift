@@ -1,5 +1,5 @@
 //
-//  AuthorsCell.swift
+//  PublishersCell.swift
 //  NewsForALL
 //
 //  Created by Shweta Ambarkhane on 30/09/23.
@@ -9,7 +9,7 @@ import CoreData
 import Dispatch
 import UIKit
 
-class AuthorsCell: UICollectionViewCell {
+class PublishersCell: UICollectionViewCell {
     
     weak var horizontalStackView: UIStackView!
     weak var nameLabel: UILabel!
@@ -71,13 +71,13 @@ class AuthorsCell: UICollectionViewCell {
     }
     
     func updateButton() {
-        let isSubscribedAuthor = isSubscribed()
-        let buttonTitle = isSubscribedAuthor ? "Subscribed" : "Subscribe"
+        let isSubscribedPublisher = isSubscribed()
+        let buttonTitle = isSubscribedPublisher ? "Subscribed" : "Subscribe"
         subscribeButton.setTitle(buttonTitle, for: .normal)
         subscribeButton.addTarget(self, action: #selector(tapSubscribeButton), for: .touchUpInside)
         var configuration = UIButton.Configuration.filled()
         configuration.title = "title"
-        configuration.baseBackgroundColor = isSubscribedAuthor ? .gray : UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
+        configuration.baseBackgroundColor = isSubscribedPublisher ? .gray : UIColor(red: 110/255, green: 185/255, blue: 255/255, alpha: 1)
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
         
         subscribeButton.configuration = configuration
@@ -90,18 +90,18 @@ class AuthorsCell: UICollectionViewCell {
         let currentUser = currentUsers.first!
         
         guard let name = nameLabel.text else {
-            print("No author found to subscribe")
+            print("No Publisher found to subscribe")
             return false
         }
         
-        var isSubscribedAuthor = false
-        currentUser.subscribeAuthors?.forEach {
-            if ($0 as! SubscribeAuthor).authorName == name {
-                isSubscribedAuthor = true
+        var isSubscribedPublisher = false
+        currentUser.subscribePublishers?.forEach {
+            if ($0 as! SubscribePublisher).publisherName == name {
+                isSubscribedPublisher = true
             }
         }
         
-        return isSubscribedAuthor
+        return isSubscribedPublisher
     }
     
     @objc
@@ -112,13 +112,13 @@ class AuthorsCell: UICollectionViewCell {
         let currentUser = currentUsers.first!
         
         guard let name = nameLabel.text else {
-            print("No author found to subscribe")
+            print("No Publisher found to subscribe")
             return
         }
         
         if isSubscribed() {
-            if let valueToDelete = currentUser.subscribeAuthors?.first(where: { ($0 as! SubscribeAuthor).authorName == name }) as? SubscribeAuthor {
-                currentUser.removeFromSubscribeAuthors(valueToDelete)
+            if let valueToDelete = currentUser.subscribePublishers?.first(where: { ($0 as! SubscribePublisher).publisherName == name }) as? SubscribePublisher {
+                currentUser.removeFromSubscribePublishers(valueToDelete)
                 
                 // save context
                 do {
@@ -129,10 +129,10 @@ class AuthorsCell: UICollectionViewCell {
             }
             
             do {
-                let subscription = try context.fetch(SubscribeAuthor.fetchRequest())
+                let subscription = try context.fetch(SubscribePublisher.fetchRequest())
                 context.delete(subscription[0])
             } catch {
-                print("Unsuccessful SubscribeAuthor fetch request")
+                print("Unsuccessful SubscribePublisher fetch request")
             }
             
             // save context
@@ -147,17 +147,17 @@ class AuthorsCell: UICollectionViewCell {
         }
         
         // create new subscription
-        let newSubscription = SubscribeAuthor(context: context)
-        newSubscription.authorName = name
+        let newSubscription = SubscribePublisher(context: context)
+        newSubscription.publisherName = name
         
-        var subscribedAuthors: NSMutableSet
-        if currentUser.subscribeAuthors == nil || currentUser.subscribeAuthors?.count == 0 {
-            subscribedAuthors = NSMutableSet()
+        var subscribedPublishers: NSMutableSet
+        if currentUser.subscribePublishers == nil || currentUser.subscribePublishers?.count == 0 {
+            subscribedPublishers = NSMutableSet()
         } else {
-            subscribedAuthors = NSMutableSet(set: currentUser.subscribeAuthors!)
+            subscribedPublishers = NSMutableSet(set: currentUser.subscribePublishers!)
         }
-        subscribedAuthors.add(newSubscription)
-        currentUser.subscribeAuthors = subscribedAuthors
+        subscribedPublishers.add(newSubscription)
+        currentUser.subscribePublishers = subscribedPublishers
         
         // save context
         do {

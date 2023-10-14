@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22G74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CurrentUser" representedClassName="CurrentUser" syncable="YES" codeGenerationType="class">
-        <relationship name="subscribeAuthors" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SubscribeAuthor"/>
+        <relationship name="subscribePublishers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SubscribePublisher"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User"/>
     </entity>
     <entity name="RegisteredUser" representedClassName="RegisteredUser" syncable="YES" codeGenerationType="class">
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User"/>
     </entity>
-    <entity name="SubscribeAuthor" representedClassName="SubscribeAuthor" syncable="YES" codeGenerationType="class">
-        <attribute name="authorName" optional="YES" attributeType="String"/>
+    <entity name="SubscribePublisher" representedClassName="SubscribePublisher" syncable="YES" codeGenerationType="class">
+        <attribute name="publisherName" optional="YES" attributeType="String"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="emailId" optional="YES" attributeType="String"/>

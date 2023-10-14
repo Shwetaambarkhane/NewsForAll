@@ -9,9 +9,13 @@ import Foundation
 
 struct Article: Codable {
     
-    var author: String?
+    var source: Source
     var title: String
     var description: String?
     var url: String
     var publishedAt: String
+}
+
+struct Source: Codable {
+    var name: String
 }

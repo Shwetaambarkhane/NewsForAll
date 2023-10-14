@@ -9,14 +9,14 @@ import UIKit
 
 protocol ArticleCellDelegate {
     func didReadMoreButtonTapped(urlString: String)
-    func didAuthorLabelTapped(authorsList: [String]?)
+    func didPublisherLabelTapped(publishersList: [String]?)
 }
 
 class ArticleCell: UICollectionViewCell {
     
     weak var articleHeading: UILabel!
     weak var readMoreButton: UIButton!
-    weak var authorLabel: UILabel!
+    weak var publisherLabel: UILabel!
     weak var horizontalStackView: UIStackView!
     
     var readMoreUrl: String!
@@ -68,7 +68,7 @@ class ArticleCell: UICollectionViewCell {
         
         setHorizontalStackViewConstraints()
         setReadMoreButton()
-        setAuthorLabel()
+        setPublisherLabel()
     }
     
     func setHorizontalStackViewConstraints() {
@@ -98,19 +98,19 @@ class ArticleCell: UICollectionViewCell {
         self.readMoreButton = readMoreButton
     }
     
-    func setAuthorLabel() {
-        let authorLabel = UILabel()
-        authorLabel.font = UIFont.systemFont(ofSize: 15)
-        authorLabel.textColor = .link
-        authorLabel.textAlignment = .right
-        authorLabel.isUserInteractionEnabled = true
+    func setPublisherLabel() {
+        let publisherLabel = UILabel()
+        publisherLabel.font = UIFont.systemFont(ofSize: 15)
+        publisherLabel.textColor = .link
+        publisherLabel.textAlignment = .right
+        publisherLabel.isUserInteractionEnabled = true
         
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapAuthorLabel))
-        authorLabel.addGestureRecognizer(gestureRecognizer)
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapPublisherLabel))
+        publisherLabel.addGestureRecognizer(gestureRecognizer)
         
-        addSubview(authorLabel)
-        horizontalStackView.addArrangedSubview(authorLabel)
-        self.authorLabel = authorLabel
+        addSubview(publisherLabel)
+        horizontalStackView.addArrangedSubview(publisherLabel)
+        self.publisherLabel = publisherLabel
     }
     
     @objc
@@ -119,23 +119,23 @@ class ArticleCell: UICollectionViewCell {
     }
     
     @objc
-    func tapAuthorLabel() {
-        guard let authorsListString = authorLabel.text else {
-            delegate?.didAuthorLabelTapped(authorsList: nil)
+    func tapPublisherLabel() {
+        guard let publishersListString = publisherLabel.text else {
+            delegate?.didPublisherLabelTapped(publishersList: nil)
             return
         }
         
-        let arrayOfAuthors = authorsListString.components(separatedBy: ",")
+        let arrayOfPublishers = publishersListString.components(separatedBy: ",")
             .map { $0.replacingOccurrences(of: "by: ", with: "") }
             .map { $0.trimmingCharacters(in: .whitespaces) }
-        delegate?.didAuthorLabelTapped(authorsList: arrayOfAuthors)
+        delegate?.didPublisherLabelTapped(publishersList: arrayOfPublishers)
     }
 
     func bind(with data: ArticleViewData) {
         articleHeading.text = data.articleDescription
         readMoreUrl = data.articleURL
-        if let author = data.author {
-            authorLabel.text = "by: \(author)"
+        if let publisher = data.publisher {
+            publisherLabel.text = "by: \(publisher)"
         }
     }
 }

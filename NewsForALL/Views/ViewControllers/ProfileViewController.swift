@@ -29,7 +29,7 @@ class ProfileViewController: UIViewController {
         
         view.backgroundColor = .white
         fetchCurrentUsers()
-        getSubscribedAuthorsList()
+        getSubscribedPublishersList()
         
         setProfileImage()
         setProfileNameLabel()
@@ -38,7 +38,7 @@ class ProfileViewController: UIViewController {
         setLogoutButton()
         
         // Set the collection view's delegate and data source
-        collectionView.register(AuthorsCell.self, forCellWithReuseIdentifier: "authorCell")
+        collectionView.register(PublishersCell.self, forCellWithReuseIdentifier: "publisherCell")
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerReuseIdentifier")
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -72,14 +72,14 @@ class ProfileViewController: UIViewController {
         collectionView.heightAnchor.constraint(equalToConstant: collectionView.contentSize.height).isActive = true
     }
     
-    func getSubscribedAuthorsList() {
+    func getSubscribedPublishersList() {
         guard let currentUsers = currentUsers else {
             return
         }
         let currentUser = currentUsers.first!
         
-        currentUser.subscribeAuthors?.forEach {
-            let name = ($0 as! SubscribeAuthor).authorName
+        currentUser.subscribePublishers?.forEach {
+            let name = ($0 as! SubscribePublisher).publisherName
             guard let name = name else {
                 return
             }
@@ -191,9 +191,9 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
             
             let titleLabel = UILabel()
             if names.count < 1 {
-                titleLabel.text = "No Authors Subscribed"
+                titleLabel.text = "No Publishers Subscribed"
             } else {
-                titleLabel.text = "Subscribed Authors"
+                titleLabel.text = "Subscribed Publishers"
             }
             titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
             titleLabel.frame = CGRect(x: 10, y: 0, width: collectionView.frame.size.width - 20, height: 30)
@@ -222,8 +222,8 @@ extension ProfileViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "authorCell",
-            for: indexPath) as! AuthorsCell
+            withReuseIdentifier: "publisherCell",
+            for: indexPath) as! PublishersCell
         
         let name = names[indexPath.row]
         cell.bind(with: name)

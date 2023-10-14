@@ -1,5 +1,5 @@
 //
-//  AuthorsBottomsheetController.swift
+//  PublishersBottomsheetController.swift
 //  NewsForALL
 //
 //  Created by Shweta Ambarkhane on 29/09/23.
@@ -7,15 +7,15 @@
 
 import UIKit
 
-class AuthorsBottomsheetController: UIViewController {
+class PublishersBottomsheetController: UIViewController {
     
     weak var titleLabel: UILabel!
     weak var collectionView: UICollectionView!
     
-    var authorsList: [String]?
+    var publishersList: [String]?
     
-    init(authorsList: [String]?) {
-        self.authorsList = authorsList
+    init(publishersList: [String]?) {
+        self.publishersList = publishersList
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,14 +30,14 @@ class AuthorsBottomsheetController: UIViewController {
         setTitleLabel()
         setCollectionView()
         
-        collectionView.register(AuthorsCell.self, forCellWithReuseIdentifier: "authorCell")
+        collectionView.register(PublishersCell.self, forCellWithReuseIdentifier: "publisherCell")
         collectionView.delegate = self
         collectionView.dataSource = self
     }
     
     func setTitleLabel() {
         let titleLabel = UILabel()
-        titleLabel.text = "Authors"
+        titleLabel.text = "Publishers"
         titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
@@ -70,14 +70,14 @@ class AuthorsBottomsheetController: UIViewController {
 
 }
 
-extension AuthorsBottomsheetController: UICollectionViewDelegate {
+extension PublishersBottomsheetController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("hello")
     }
 }
 
-extension AuthorsBottomsheetController: UICollectionViewDelegateFlowLayout {
+extension PublishersBottomsheetController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.size.width - 20, height: 50)
@@ -88,26 +88,26 @@ extension AuthorsBottomsheetController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension AuthorsBottomsheetController: UICollectionViewDataSource {
+extension PublishersBottomsheetController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let authorsList = authorsList else {
+        guard let publishersList = publishersList else {
             print("No data")
             return 0
         }
-        return authorsList.count
+        return publishersList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "authorCell",
-            for: indexPath) as! AuthorsCell
+            withReuseIdentifier: "publisherCell",
+            for: indexPath) as! PublishersCell
         
-        guard let data = authorsList else {
+        guard let data = publishersList else {
             print("No data")
             return UICollectionViewCell()
         }

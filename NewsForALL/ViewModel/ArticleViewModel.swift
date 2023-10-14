@@ -19,8 +19,8 @@ class ArticleViewModel {
         return article.title
     }
 
-    var author: String? {
-        return article.author
+    var publisher: String {
+        return article.source.name
     }
 
     var description: String? {
