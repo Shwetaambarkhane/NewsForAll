@@ -195,6 +195,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
             } else {
                 titleLabel.text = "Subscribed Publishers"
             }
+            titleLabel.textColor = .black
             titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
             titleLabel.frame = CGRect(x: 10, y: 0, width: collectionView.frame.size.width - 20, height: 30)
             headerView.addSubview(titleLabel)

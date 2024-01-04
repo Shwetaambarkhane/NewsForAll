@@ -99,6 +99,10 @@ class NewsArticlesViewController: UIViewController, TabButtonsViewDelegate, Arti
         dataTask.resume()
     }
     
+    func getNewsData() -> [ArticleViewModel]? {
+        return newsData
+    }
+    
     func didTrendingButtonTapped() {
         // No op
     }
