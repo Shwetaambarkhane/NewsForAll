@@ -13,9 +13,13 @@ import FirebaseCore
 import FirebaseMessaging
 import UserNotifications
 
+import BackgroundTasks
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
+    var newDataFetched: [ArticleViewModel]?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
@@ -31,7 +35,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         application.registerForRemoteNotifications()
         
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.newsarticle.fetch", using: nil) { task in
+            self.handleAppRefresh(task: task as! BGAppRefreshTask)
+        }
+        
         return true
+    }
+    
+    // fetch latest articles from server
+    func handleAppRefresh(task: BGAppRefreshTask) {
+        scheduleAppRefresh()
+        
+        task.expirationHandler = { [weak self] in
+            self?.newDataFetched = AppDelegateHelper().createApi()
+        }
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        scheduleAppRefresh()
+    }
+    
+    func scheduleAppRefresh() {
+        let request = BGAppRefreshTaskRequest(identifier: "com.newsarticle.fetch")
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 15 * 60)
+        do {
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            print("Could not schedule app refresh", error.localizedDescription)
+        }
     }
     
     // MARK: MessagingDelegate
@@ -108,16 +139,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
     }
-    
-    // MARK: - Background Fetch
-    
-//    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-//
-//        if let newData = AppDelegateHelper().createApi() {
-//            completionHandler(.newData)
-//        } else {
-//            completionHandler(.noData)
-//        }
-//    }
 }
 
