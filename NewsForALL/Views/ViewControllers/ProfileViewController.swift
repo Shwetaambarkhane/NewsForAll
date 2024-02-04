@@ -53,8 +53,8 @@ class ProfileViewController: UIViewController {
             // Profile Image View
             profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            profileImageView.widthAnchor.constraint(equalToConstant: 80),
-            profileImageView.heightAnchor.constraint(equalToConstant: 80),
+            profileImageView.widthAnchor.constraint(equalToConstant: 48),
+            profileImageView.heightAnchor.constraint(equalToConstant: 48),
             
             // Profile Name Label
             profileNameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
@@ -97,7 +97,7 @@ class ProfileViewController: UIViewController {
     
     func setProfileNameLabel() {
         let profileNameLabel = UILabel()
-        profileNameLabel.text = "User"
+        profileNameLabel.text = currentUsers?.first?.user?.username
         profileNameLabel.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         profileNameLabel.numberOfLines = 3
         profileNameLabel.textColor = .black

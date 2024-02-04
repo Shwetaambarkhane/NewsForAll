@@ -15,6 +15,7 @@ class NavigationComponents {
         profilebutton.contentVerticalAlignment = .fill
         profilebutton.contentHorizontalAlignment = .fill
         profilebutton.setImage(profileImage, for: .normal)
+        profilebutton.tintColor = .black
         
         profilebutton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

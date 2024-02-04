@@ -11,6 +11,7 @@ import CoreData
 class LoginViewController: UIViewController {
     
     weak var titleLabel: UILabel!
+    weak var userName: UITextField!
     weak var emailId: UITextField!
     weak var password: UITextField!
     weak var confirmPassword: UITextField!
@@ -57,6 +58,10 @@ class LoginViewController: UIViewController {
         setTitleLabelConstraints()
         setComponentStackView()
         setComponentStackViewConstraints()
+        if !haveAccount {
+            setUserNameField()
+            setUserNameFieldConstraints()
+        }
         setEmailIdField()
         setEmailIdFieldConstraints()
         setPasswordField()
@@ -95,7 +100,6 @@ class LoginViewController: UIViewController {
     func setComponentStackView() {
         let stackView = UIStackView()
         stackView.axis = .vertical
-//        stackView.alignment = .fill
         stackView.distribution = .fillProportionally
         stackView.spacing = 10
         
@@ -110,6 +114,25 @@ class LoginViewController: UIViewController {
             componentStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             componentStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 80),
             componentStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    func setUserNameField() {
+        let userName = UITextField()
+        userName.placeholder = "Enter username"
+        userName.font = UIFont.systemFont(ofSize: 18)
+        userName.borderStyle = UITextField.BorderStyle.roundedRect
+        userName.autocorrectionType = .no
+        userName.autocapitalizationType = .none
+        
+        componentStackView.addArrangedSubview(userName)
+        self.userName = userName
+    }
+    
+    func setUserNameFieldConstraints() {
+        userName.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            userName.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -258,7 +281,9 @@ class LoginViewController: UIViewController {
     }
     
     func showErrorMessage() {
-        if emailId.text == "" {
+        if !haveAccount && userName.text == "" {
+            messageLabel.text = "Username cannot be empty"
+        } else if emailId.text == "" {
             messageLabel.text = "Email id cannot be empty"
         } else if password.text == "" {
             messageLabel.text = "Password cannot be empty"
@@ -305,8 +330,14 @@ class LoginViewController: UIViewController {
         
         // create new user
         let user = User(context: context)
-        user.emailId = emailId.text
-        user.password = password.text
+        
+        registeredUser?.forEach { rUser in
+            if emailId.text == rUser.user?.emailId {
+                user.username = rUser.user?.username
+                user.emailId = rUser.user?.emailId
+                user.password = rUser.user?.password
+            }
+        }
         
         let currentUser = CurrentUser(context: context)
         currentUser.user = user
@@ -326,6 +357,7 @@ class LoginViewController: UIViewController {
         
         // create new user
         let newUser = User(context: context)
+        newUser.username = userName.text
         newUser.emailId = emailId.text
         newUser.password = password.text
         
